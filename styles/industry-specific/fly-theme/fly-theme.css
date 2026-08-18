@@ -70,3 +70,165 @@ body.fly-theme .cta-button a.button::after {
   font-size: 17px;
   margin-left: 0;
 }
+
+body.fly-theme header,
+body.fly-theme header nav {
+  min-height: unset;
+}
+
+body.fly-theme header nav .section.nav-brand a::after {
+  content: unset;
+}
+
+body.fly-theme header nav .nav-brand picture {
+  width: auto;
+}
+
+body.fly-theme header .nav-hamburger button {
+  color: var(--nav-text-color, #2C2C2C);
+  width: 36px;
+  height: 36px;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="%232C2C2C"><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="16"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="6"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="26"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px 18px;
+}
+
+body.fly-theme header .nav-hamburger-icon,
+body.fly-theme header .nav-hamburger-icon::before,
+body.fly-theme header .nav-hamburger-icon::after {
+  content: unset;
+  display: none;
+}
+
+/* sign-in link becomes an icon-only account/avatar glyph on mobile */
+body.fly-theme header nav .nav-tools .sign-in-btn::after {
+  content: none !important;
+}
+
+@media screen and (max-width: 768px) {
+  body.fly-theme header .header nav .nav-tools .sign-in-btn, body.fly-theme header nav .nav-tools a[href*="sign"] {
+    font-size: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    width: 18px;
+    height: 18px;
+  }
+
+  body.fly-theme header nav .nav-tools .sign-in-btn {
+    display: inline-flex;
+    width: 18px;
+    height: 18px;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    border: 0;
+    padding: 0;
+  }
+
+  body.fly-theme header nav .nav-tools .sign-in-btn::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 18px;
+    background-color: var(--nav-text-color, #000);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 36 36' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M32.949,34a.993.993,0,0,0,1-1.053c-.661-7.184-8.027-9.631-10.278-9.827C22.026,22.977,22,21.652,22,20c0,0,3.532-3.943,3.532-8.958C25.532,5.617,22.445,2,18,2s-7.532,3.617-7.532,9.042C10.468,16.057,14,20,14,20c0,1.652-.026,2.977-1.674,3.12-2.251.2-9.617,2.643-10.278,9.827a.993.993,0,0,0,1,1.053Z'/%3E%3C/svg%3E") no-repeat center / contain;
+    mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 36 36' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M32.949,34a.993.993,0,0,0,1-1.053c-.661-7.184-8.027-9.631-10.278-9.827C22.026,22.977,22,21.652,22,20c0,0,3.532-3.943,3.532-8.958C25.532,5.617,22.445,2,18,2s-7.532,3.617-7.532,9.042C10.468,16.057,14,20,14,20c0,1.652-.026,2.977-1.674,3.12-2.251.2-9.617,2.643-10.278,9.827a.993.993,0,0,0,1,1.053Z'/%3E%3C/svg%3E") no-repeat center / contain;
+  }
+
+  body.fly-theme header .search.search-icon .icon,
+  body.fly-theme header .search.search-icon .search-trigger {
+    display: block;
+  }
+
+  body.fly-theme header nav[aria-expanded='true'] {
+    padding: 0 16px !important;
+    height: var(--nav-height);
+  }
+
+  body.fly-theme header nav[aria-expanded='true'] .nav-tools .search, body.fly-theme header nav[aria-expanded='true'] .nav-tools .search-trigger, body.fly-theme header nav[aria-expanded='true'] .nav-tools .icon-search-light {
+    display: block !important;
+  }
+}
+
+@media (width < 900px) {
+  body.fly-theme header nav .nav-tools .sign-in-btn {
+    display: inline-flex !important;
+  }
+
+  body.fly-theme header nav[aria-expanded='true'] .nav-tools .sign-in-btn,
+  body.fly-theme header nav[aria-expanded='true'] .nav-tools a[href*="sign"] {
+    font-size: 0 !important;
+    min-height: unset !important;
+    padding: unset !important;
+    text-align: unset !important;
+  }
+
+  body.fly-theme header nav {
+    justify-content: space-between;
+    padding: 0 16px;
+  }
+
+  body.fly-theme header .nav-brand {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  body.fly-theme header nav .nav-brand a {
+    display: inline-flex;
+  }
+
+  /* keep the logo's own aspect ratio instead of being width-clamped by the grown flex box */
+  body.fly-theme header nav .nav-brand img {
+    height: 28px;
+    max-width: none;
+  }
+
+  body.fly-theme header nav[aria-expanded='true']::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 111111;
+    background-color: var(--dark-color-opacity);
+  }
+
+  body.fly-theme header nav[aria-expanded='true'] .nav-sections {
+    background-color: #fff;
+    padding: 1rem;
+    top: 64px;
+  }
+
+  body.fly-theme header nav[aria-expanded='true'] .nav-tools {
+    position: static;
+    width: unset;
+    background-color: unset;
+  }
+
+  body.fly-theme header nav[aria-expanded='true'] .nav-tools .lang-switcher {
+    display: none !important;
+  }
+
+  body.fly-theme footer .footer {
+    padding: 0 16px;
+  }
+
+  body.fly-theme footer .footer div:has(> p > a) {
+    display: none;
+  }
+
+  body.fly-theme footer .footer div .default-content-wrapper > p {
+    flex: unset !important;
+    max-width: 100% !important;
+  }
+
+  body.fly-theme .section.cards-container.section-horizontal-widths {
+    flex-direction: column !important;
+  }
+
+  body.fly-theme .section.cards-container.section-horizontal-widths > div {
+    max-width: 100% !important;
+  }
+}
