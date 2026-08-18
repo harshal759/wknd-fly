@@ -106,6 +106,16 @@ body.fly-theme header nav .nav-tools .sign-in-btn::after {
   content: none !important;
 }
 
+body.fly-theme .section.create-account-container .default-content-wrapper a {
+  color: #1979c3;
+  display: inline;
+  text-decoration: underline;
+}
+
+body.fly-theme .section.create-account-container .default-content-wrapper a::after {
+  content: unset;
+}
+
 @media screen and (max-width: 768px) {
   body.fly-theme header .header nav .nav-tools .sign-in-btn, body.fly-theme header nav .nav-tools a[href*="sign"] {
     font-size: 0 !important;
@@ -224,11 +234,17 @@ body.fly-theme header nav .nav-tools .sign-in-btn::after {
     max-width: 100% !important;
   }
 
-  body.fly-theme .section.cards-container.section-horizontal-widths {
+  body.fly-theme .section.cards-container.section-horizontal-widths,
+  body.fly-theme .section.sign-in-container {
     flex-direction: column !important;
   }
 
-  body.fly-theme .section.cards-container.section-horizontal-widths > div {
+  body.fly-theme .section.cards-container.section-horizontal-widths > div,
+  body.fly-theme .section.sign-in-container > div {
     max-width: 100% !important;
+  }
+
+  body.fly-theme .section.sign-in-container > div .sign-in {
+    margin: 30px 0 !important;
   }
 }
