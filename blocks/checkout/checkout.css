@@ -62,10 +62,15 @@ main > .section:has(.checkout-block) > div {
 
 .checkout-section {
   background: #fff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #e0e0e0 !important;
   border-radius: 8px;
-  padding: 1.5rem 2rem;
-  text-align: left;
+  padding: 1.5rem 2rem !important;
+  text-align: left !important;
+}
+
+.checkout-section .heading-wrapper > :is(h1, h2, h3, h4, h5, h6) {
+  text-align: left !important;
+  color: #333;
 }
 
 .checkout-section-title {
@@ -75,7 +80,13 @@ main > .section:has(.checkout-block) > div {
   color: #333;
 }
 
-.checkout-description {
+/* Adaptive-form headings are centered by default form.css rules; restore original left alignment */
+.checkout-block .heading-wrapper > :is(h1, h2, h3, h4, h5, h6).checkout-section-title {
+  text-align: left;
+  margin: 0 0 1rem 0;
+}
+
+.checkout-section .checkout-description {
   margin: 0 0 1rem 0;
   font-size: 0.875rem;
   color: #666;
@@ -192,68 +203,46 @@ main > .section:has(.checkout-block) > div {
   line-height: 1.5;
 }
 
-/* Upgrade & Preferences – left-aligned */
-.checkout-checkbox {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.5rem;
+/* Upgrade & Preferences – left-aligned; wraps AFB .checkbox-wrapper / .field-wrapper */
+.checkout-block .checkout-checkbox {
   margin-bottom: 0.75rem;
   font-size: 0.9375rem;
   cursor: pointer;
   text-align: left;
 }
 
-.checkout-checkbox input {
+.checkout-block .checkout-checkbox input {
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;
 }
 
-.checkout-prefs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+.checkout-block .checkout-checkbox label {
+  cursor: pointer;
 }
 
-.checkout-prefs label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.875rem;
-  min-width: 140px;
-}
-
-.checkout-prefs select {
+.checkout-block .checkout-prefs select {
   padding: 0.5rem 0.75rem;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 0.9375rem;
 }
 
-/* Forms – left-aligned (not centered) */
-.checkout-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* Forms – left-aligned (not centered); AFB .field-wrapper already stacks label above input */
+.checkout-block .checkout-form {
   text-align: left;
-  align-items: flex-start;
 }
 
-.checkout-form label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
+.checkout-block .checkout-form label {
   font-size: 0.875rem;
   color: #333;
-  width: 100%;
   text-align: left;
 }
 
-.checkout-form input[type="text"],
-.checkout-form input[type="email"],
-.checkout-form input[type="tel"],
-.checkout-form select {
+.checkout-block .checkout-form input[type="text"],
+.checkout-block .checkout-form input[type="email"],
+.checkout-block .checkout-form input[type="tel"],
+.checkout-block .checkout-form select {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -262,9 +251,10 @@ main > .section:has(.checkout-block) > div {
   border-radius: 6px;
   font-size: 0.9375rem;
   font-family: inherit;
+  height: auto;
 }
 
-.checkout-form select {
+.checkout-block .checkout-form select {
   appearance: none;
   background-color: #fff;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
@@ -341,13 +331,10 @@ body.citi-signal-theme .checkout-prefs select {
 .checkout-confirm-btn:hover {
   filter: brightness(1.05);
 }
-label.checkout-checkbox {
-  flex-direction: row;
-}
 
 @media (max-width: 600px) {
   .checkout-block {
-    padding: 0 1rem 2rem;
+    padding: 0;
   }
   .checkout-header {
     margin: 0 -1rem 0;
@@ -361,5 +348,14 @@ label.checkout-checkbox {
   .checkout-trip-image {
     width: 90px;
     height: 60px;
+  }
+
+  .checkout-empty-trip {
+    padding: 0;
+  }
+
+  .checkout-block .form form .panel-wrapper.checkout-section.checkout-prefs {
+    display: flex;
+    flex-direction: column;
   }
 }
