@@ -893,6 +893,21 @@
     "id": "checkout-shipping",
     "fields": [
       {
+        "component": "boolean",
+        "name": "flight-booking",
+        "label": "Flight Booking Mode",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "Renders the flight/Trip-Summary checkout (Trip Summary, seat/meal preferences, passenger info, payment) instead of the standard shipping checkout."
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "confirmationpath",
+        "label": "Confirmation Page Path (Flight Booking Mode)",
+        "description": "Page to redirect to after purchase confirmation in flight-booking mode. Defaults to /en/confirmation if not set."
+      },
+      {
         "component": "aem-content",
         "name": "back-path",
         "label": "Back Path",
