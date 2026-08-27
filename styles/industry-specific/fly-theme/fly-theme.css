@@ -71,52 +71,51 @@ body.fly-theme .cta-button a.button::after {
   margin-left: 0;
 }
 
-body.fly-theme header,
-body.fly-theme header nav {
-  min-height: unset;
-}
-
-body.fly-theme header nav .section.nav-brand a::after {
-  content: unset;
-}
-
-body.fly-theme header nav .nav-brand picture {
-  width: auto;
-}
-
-body.fly-theme header .nav-hamburger button {
-  color: var(--nav-text-color, #2C2C2C);
-  width: 36px;
-  height: 36px;
-  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="%232C2C2C"><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="16"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="6"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="26"/></svg>');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 18px 18px;
-}
-
-body.fly-theme header .nav-hamburger-icon,
-body.fly-theme header .nav-hamburger-icon::before,
-body.fly-theme header .nav-hamburger-icon::after {
-  content: unset;
-  display: none;
-}
-
-/* sign-in link becomes an icon-only account/avatar glyph on mobile */
-body.fly-theme header nav .nav-tools .sign-in-btn::after {
-  content: none !important;
-}
-
 body.fly-theme .section.create-account-container .default-content-wrapper a {
   color: #1979c3;
   display: inline;
   text-decoration: underline;
 }
 
-body.fly-theme .section.create-account-container .default-content-wrapper a::after {
-  content: unset;
-}
-
 @media screen and (max-width: 768px) {
+  body.fly-theme header,
+  body.fly-theme header nav {
+    min-height: unset;
+  }
+
+  body.fly-theme header nav .section.nav-brand a::after {
+    content: unset;
+  }
+
+  body.fly-theme header nav .nav-brand picture {
+    width: auto;
+  }
+
+  body.fly-theme header .nav-hamburger button {
+    color: var(--nav-text-color, #2C2C2C);
+    width: 36px;
+    height: 36px;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="%232C2C2C"><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="16"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="6"/><rect fill-rule="evenodd" height="4" rx="1" ry="1" width="28" x="4" y="26"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+  }
+
+  body.fly-theme header .nav-hamburger-icon,
+  body.fly-theme header .nav-hamburger-icon::before,
+  body.fly-theme header .nav-hamburger-icon::after {
+    content: unset;
+    display: none;
+  }
+
+  /* sign-in link becomes an icon-only account/avatar glyph on mobile */
+  body.fly-theme header nav .nav-tools .sign-in-btn::after {
+    content: none !important;
+  }
+
+  body.fly-theme .section.create-account-container .default-content-wrapper a::after {
+    content: unset;
+  }
   body.fly-theme header .header nav .nav-tools .sign-in-btn, body.fly-theme header nav .nav-tools a[href*="sign"] {
     font-size: 0 !important;
     padding: 0 !important;
