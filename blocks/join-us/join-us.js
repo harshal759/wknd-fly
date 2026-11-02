@@ -10,7 +10,6 @@ import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, submitToWebhook, fetchButtonDataSheet } from "../../scripts/form-data-layer.js";
 import { normalizeAemPath } from "../../scripts/scripts.js";
 
-const DEFAULT_FORM_TITLE = 'JOIN WKND FLY CLUB';
 const DEFAULT_SUCCESS_TOAST_MESSAGE = 'Thank you for joining WKND Fly Club. Check your email, new exciting travels are ahead of you!';
 
 function normalizeVariant(value) {
@@ -64,7 +63,7 @@ export default async function decorate(block) {
   const showDeliverySection = isTruthy(config.showdeliverysection);
   const callBeforeDeliveryDefault = isTruthy(config.callbeforedelivery);
   const formActionId = (config.buttonformid ?? config['button-form-id'] ?? '').toString().trim();
-  const formTitle = (config.formtitle ?? config['form-title'] ?? '').toString().trim() || DEFAULT_FORM_TITLE;
+  const formTitle = (config.formtitle ?? config['form-title'] ?? '').toString().trim();
   const buttonText = String(config.buttontext ?? config.buttonText ?? config['button-text'] ?? '').trim() || 'JOIN US';
   const successToastMessage = (config.successmessage ?? config['success-message'] ?? '').toString().trim() || DEFAULT_SUCCESS_TOAST_MESSAGE;
   const formDesc = (config.formdesc ?? config['form-desc'] ?? '').toString().trim() || '';
@@ -76,18 +75,18 @@ export default async function decorate(block) {
     fieldType: 'form',
     appliedCssClassNames: 'join-us-form',
     items: [
-      {
+      ...(formTitle ? [{
         id: 'heading-join-us',
         fieldType: 'heading',
         label: { value: formTitle },
         appliedCssClassNames: 'col-12',
-      },
-      {
+      }] : []),
+      ...(formDesc ? [{
         id: 'description-join-us',
         fieldType: 'heading',
         label: { value: formDesc },
-        appliedCssClassNames: `col-12 form-description${!formDesc ? ' is-empty' : ''}`,
-      },
+        appliedCssClassNames: 'col-12 form-description',
+      }] : []),
       {
         id: 'panel-main',
         name: 'main',
