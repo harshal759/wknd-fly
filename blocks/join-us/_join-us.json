@@ -30,7 +30,6 @@
           "component": "text",
           "name": "form-title",
           "label": "Form Title",
-          "value": "JOIN WKND FLY CLUB",
           "valueType": "string"
         },
         {
