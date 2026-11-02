@@ -43,8 +43,12 @@ const DEFAULT_AEM_AUTHOR_HOSTNAME = 'https://author-p189874-e1977911.adobeaemclo
     try {
       if(isAuthorEnvironment()){
           // Fallback to extracting from pathname
+          // Captures everything between "/content/" and the language-masters
+          // segment, since author paths can include extra segments
+          // (e.g. "/content/{site}/{env-suffix}/language-masters/...").
           const { pathname } = window.location;
-          const siteNameFromPath = pathname.split('/content/')[1]?.split('/')[0] || '';
+          const afterContent = pathname.split('/content/')[1] || '';
+          const siteNameFromPath = afterContent.split(`${PATH_PREFIX}/`)[0]?.replace(/\/$/, '') || '';
           return siteNameFromPath;
       } else {
         const listOfAllPlaceholdersData = await fetchPlaceholders();
@@ -257,8 +261,8 @@ export function computeLocalizedUrl(targetLang) {
     // AEM author: /content/{site}/language-masters/{lang}/{suffix}.html
     // getSiteName can be async; fall back to path parsing if needed synchronously
     const { pathname } = window.location;
-    const parts = pathname.split('/');
-    const siteNameFromPath = parts[2] || '';
+    const afterContent = pathname.split('/content/')[1] || '';
+    const siteNameFromPath = afterContent.split(`${PATH_PREFIX}/`)[0]?.replace(/\/$/, '') || '';
     const base = `/content/${siteNameFromPath}${PATH_PREFIX}/${targetLang}`;
     // Normalize suffix:
     // - treat ".html" (language root) as empty

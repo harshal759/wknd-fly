@@ -340,7 +340,11 @@ function attachFormSubmitHandler(block, formActionId = '', successToastMessage =
       if (webhookUrl) await submitToWebhook(form, webhookUrl, formId);
 
       const redirectUrl = submitBtn?.dataset?.buttonRedirectUrl?.trim();
-      if (redirectUrl) window.location.href = normalizeAemPath(redirectUrl);
+      if (redirectUrl) {
+        setTimeout(() => {
+          window.location.href = normalizeAemPath(redirectUrl);
+        }, 5000);
+      }
     }
   );
 }

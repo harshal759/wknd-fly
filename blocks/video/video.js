@@ -1,3 +1,6 @@
+import { readBlockConfig } from '../../scripts/aem.js';
+import { dispatchCustomEvent } from '../../scripts/custom-events.js';
+
 function embedYoutube(url, autoplay, background) {
   const usp = new URLSearchParams(url.search);
   let suffix = '';
@@ -48,7 +51,24 @@ function getVideoElement(source, autoplay, background) {
   return video;
 }
 
-const loadVideoEmbed = (block, link, autoplay, background) => {
+function setupVideoAnalytics(videoEl, startedEventType, endedEventType) {
+  if (!videoEl) return;
+
+  let startedDispatchedForRun = false;
+
+  videoEl.addEventListener('play', () => {
+    if (!startedEventType || startedDispatchedForRun) return;
+    startedDispatchedForRun = true;
+    dispatchCustomEvent(startedEventType);
+  });
+
+  videoEl.addEventListener('ended', () => {
+    if (endedEventType) dispatchCustomEvent(endedEventType);
+    startedDispatchedForRun = false;
+  });
+}
+
+const loadVideoEmbed = (block, link, autoplay, background, startedEventType, endedEventType) => {
   const isYoutube = link.includes('youtube') || link.includes('youtu.be');
   if (isYoutube) {
     const url = new URL(link);
@@ -59,6 +79,7 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
     });
   } else {
     const videoEl = getVideoElement(link, autoplay, background);
+    setupVideoAnalytics(videoEl, startedEventType, endedEventType);
     block.append(videoEl);
     videoEl.addEventListener('canplay', () => {
       block.dataset.embedLoaded = true;
@@ -67,13 +88,18 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
 };
 
 export default function decorate(block) {
-  console.log("video component called successfully");
-  const link = block.querySelector(':scope div:nth-child(1) > div a').innerHTML.trim();
-  console.log("link", link);
-  //const link = block.querySelector(':scope div:nth-child(1) > div a').innerHTML.trim();
+  const config = readBlockConfig(block) || {};
+  const authoredLink = (config.videourl || config.videoUrl || '').toString().trim();
+  const fallbackLink = block.querySelector(':scope div:nth-child(1) > div a')?.innerHTML?.trim() || '';
+  const link = authoredLink || fallbackLink;
+
+  const startedEventType = (config['started-event-type'] || config.startedeventtype || '').toString().trim();
+  const endedEventType = (config['ended-event-type'] || config.endedeventtype || '').toString().trim();
+
   block.textContent = '';
   block.dataset.embedLoaded = false;
   const autoplay = block.classList ? block.classList.contains('autoplay') : false;
   const playOnLoad = block.classList ? block.classList.contains('playonload') : false;
-  loadVideoEmbed(block, link, playOnLoad, autoplay);
+  if (!link) return;
+  loadVideoEmbed(block, link, playOnLoad, autoplay, startedEventType, endedEventType);
 }

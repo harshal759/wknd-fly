@@ -154,6 +154,645 @@
           "valueType": "number",
           "value": 1,
           "description": "The number of quantity options to be shown from when adding to cart. The dropdown will be populated with values starting from 1 and ends on the number that is authored."
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "boolean",
+          "name": "mobileappcustomproductdetails",
+          "label": "Customize for Mobile App",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Export separate product image, title, price, add-to-cart and description components instead of a product card in the mobile app."
+        },
+        {
+          "component": "container",
+          "label": "Product Image",
+          "name": "mobileProductImageProperties",
+          "valueType": "string",
+          "collapsible": true,
+          "fields": [
+            {
+              "component": "boolean",
+              "name": "mobileappshowproductimage",
+              "label": "Enable Product Image",
+              "value": "false",
+              "valueType": "boolean",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobileappcustomproductdetails"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "boolean",
+              "name": "mobileappproductimagefullwidth",
+              "label": "Full Width",
+              "value": "true",
+              "valueType": "boolean",
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproductimage"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "component": "select",
+              "name": "mobileimageresize",
+              "label": "Image resize mode",
+              "valueType": "string",
+              "value": "cover",
+              "options": [
+                {
+                  "name": "Contain",
+                  "value": "contain"
+                },
+                {
+                  "name": "Cover",
+                  "value": "cover"
+                }
+              ],
+              "condition": {
+                "or": [
+                  {
+                    "!=": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproductimage"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "component": "text",
+              "name": "mobileappproductimagestyle",
+              "label": "Custom Mobile Style",
+              "valueType": "string[]",
+              "multi": true,
+              "description": "One style per row, as key:value (e.g. marginTop:8, padding:8)",
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproductimage"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "label": "Product Title",
+          "name": "mobileProductTitleProperties",
+          "valueType": "string",
+          "collapsible": true,
+          "condition": {
+            "==": [
+              {
+                "var": "mobileappcustomproductdetails"
+              },
+              true
+            ]
+          },
+          "fields": [
+            {
+              "component": "boolean",
+              "name": "mobileappshowproducttitle",
+              "label": "Enable Product Title",
+              "value": "false",
+              "valueType": "boolean",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobileappcustomproductdetails"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "select",
+              "name": "mobileappproducttitlesize",
+              "label": "Size",
+              "valueType": "string",
+              "value": "medium",
+              "options": [
+                {
+                  "name": "X Small",
+                  "value": "xsmall"
+                },
+                {
+                  "name": "Small",
+                  "value": "small"
+                },
+                {
+                  "name": "Medium",
+                  "value": "medium"
+                },
+                {
+                  "name": "Large",
+                  "value": "large"
+                },
+                {
+                  "name": "X Large",
+                  "value": "xlarge"
+                }
+              ],
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproducttitle"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "component": "select",
+              "name": "mobileappproducttitleweight",
+              "label": "Weight",
+              "valueType": "string",
+              "value": "bold",
+              "options": [
+                {
+                  "name": "Light",
+                  "value": "light"
+                },
+                {
+                  "name": "Regular",
+                  "value": "regular"
+                },
+                {
+                  "name": "Bold",
+                  "value": "bold"
+                },
+                {
+                  "name": "Black",
+                  "value": "black"
+                }
+              ],
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproducttitle"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "component": "select",
+              "name": "mobileappproducttitlealignment",
+              "label": "Text Alignment",
+              "valueType": "string",
+              "value": "left",
+              "options": [
+                {
+                  "name": "Left",
+                  "value": "left"
+                },
+                {
+                  "name": "Center",
+                  "value": "center"
+                },
+                {
+                  "name": "Right",
+                  "value": "right"
+                }
+              ],
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproducttitle"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "component": "text",
+              "name": "mobileappproducttitlestyle",
+              "label": "Custom Mobile Style",
+              "valueType": "string[]",
+              "multi": true,
+              "description": "One style per row, as key:value (e.g. marginTop:8, padding:8)",
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproducttitle"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "label": "Product Price",
+          "name": "mobileProductPriceProperties",
+          "valueType": "string",
+          "collapsible": true,
+          "condition": {
+            "==": [
+              {
+                "var": "mobileappcustomproductdetails"
+              },
+              true
+            ]
+          },
+          "fields": [
+            {
+              "component": "boolean",
+              "name": "mobileappshowproductprice",
+              "label": "Enable Product Price",
+              "value": "false",
+              "valueType": "boolean",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobileappcustomproductdetails"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "text",
+              "name": "mobileappproductpricestyle",
+              "label": "Custom Mobile Style",
+              "valueType": "string[]",
+              "multi": true,
+              "description": "One style per row, as key:value (e.g. marginTop:8, padding:8)",
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproductprice"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "label": "Add to Cart",
+          "name": "mobileProductAddToCartProperties",
+          "valueType": "string",
+          "collapsible": true,
+          "condition": {
+            "==": [
+              {
+                "var": "mobileappcustomproductdetails"
+              },
+              true
+            ]
+          },
+          "fields": [
+            {
+              "component": "boolean",
+              "name": "mobileappshowproductaddtocartbutton",
+              "label": "Enable Add to Cart Button",
+              "value": "false",
+              "valueType": "boolean",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobileappcustomproductdetails"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "select",
+              "name": "mobileappproductaddtocartbuttonappearancevariant",
+              "label": "Content variant",
+              "valueType": "string",
+              "value": "text-icon",
+              "options": [
+                {
+                  "name": "Text & Icon",
+                  "value": "text-icon"
+                },
+                {
+                  "name": "Text",
+                  "value": "text"
+                },
+                {
+                  "name": "Icon",
+                  "value": "icon"
+                }
+              ],
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproductaddtocartbutton"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "component": "select",
+              "name": "mobileappproductaddtocartbuttonvariant",
+              "label": "Variant (button)",
+              "valueType": "string",
+              "value": "text",
+              "options": [
+                {
+                  "name": "Primary",
+                  "value": "contained"
+                },
+                {
+                  "name": "Secondary",
+                  "value": "contained-tonal"
+                },
+                {
+                  "name": "Outlined",
+                  "value": "outlined"
+                },
+                {
+                  "name": "Quiet",
+                  "value": "text"
+                },
+                {
+                  "name": "Elevated",
+                  "value": "elevated"
+                }
+              ],
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproductaddtocartbutton"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "component": "select",
+              "name": "mobileappproductaddtocartbuttonalignment",
+              "label": "Alignment",
+              "valueType": "string",
+              "value": "center",
+              "options": [
+                {
+                  "name": "Left",
+                  "value": "left"
+                },
+                {
+                  "name": "Center",
+                  "value": "center"
+                },
+                {
+                  "name": "Right",
+                  "value": "right"
+                },
+                {
+                  "name": "Stretch",
+                  "value": "stretch"
+                }
+              ],
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproductaddtocartbutton"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "component": "text",
+              "name": "mobileappproductaddtocartbuttonstyle",
+              "label": "Custom Mobile Style",
+              "valueType": "string[]",
+              "multi": true,
+              "description": "One style per row, as key:value (e.g. marginTop:8, padding:8)",
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproductaddtocartbutton"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "label": "Product Description",
+          "name": "mobileProductDescriptionProperties",
+          "valueType": "string",
+          "collapsible": true,
+          "condition": {
+            "==": [
+              {
+                "var": "mobileappcustomproductdetails"
+              },
+              true
+            ]
+          },
+          "fields": [
+            {
+              "component": "boolean",
+              "name": "mobileappshowproductdescription",
+              "label": "Enable Product Description",
+              "value": "false",
+              "valueType": "boolean",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobileappcustomproductdetails"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "text",
+              "name": "mobileappproductdescriptionstyle",
+              "label": "Custom Mobile Style",
+              "valueType": "string[]",
+              "multi": true,
+              "description": "One style per row, as key:value (e.g. marginTop:8, padding:8)",
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappcustomproductdetails"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobileappshowproductdescription"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     }

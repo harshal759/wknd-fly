@@ -20,7 +20,7 @@ window.targetGlobalSettings = {
 function loadAT() {
   function targetPageParams() {
     return {
-      "at_property": "549d426b-0bcc-be60-ce27-b9923bfcad4f"
+      //"at_property": "<please add the property here>"
     };
   }
     loadScript(window.hlx.codeBasePath+'/scripts/at-lsig.js');
@@ -122,6 +122,6 @@ initializeCustomEventsWhenLaunchReady();
 if (!window.location.hostname.includes('localhost')) {
   embedCustomLibraries();
   if (window.parent && !(window.parent.location.pathname.indexOf('/canvas/') > -1)) {
-    loadAT();
+    //loadAT();
   }
 }

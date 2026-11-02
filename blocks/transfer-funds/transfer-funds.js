@@ -41,12 +41,12 @@ export default async function decorate(block) {
     appliedCssClassNames: "transfer-funds-form",
     ...(redirectUrl && { redirectUrl }),
     items: [
-      {
+      ...(String(config["form-title"] ?? "").trim() ? [{
         id: "heading-transfer-funds",
         fieldType: "heading",
-        label: { value: "Transfer funds" },
+        label: { value: String(config["form-title"] ?? "").trim() },
         appliedCssClassNames: "col-12",
-      },
+      }] : []),
       {
         id: "panel-main",
         name: "main",

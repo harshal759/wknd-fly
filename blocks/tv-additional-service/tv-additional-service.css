@@ -1,0 +1,158 @@
+/* ============================================
+   Additional Service – card form on the shared form renderer
+   ============================================ */
+
+main .tv-additional-service {
+  width: 100%;
+  max-width: 520px;
+  margin: 40px auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+main .tv-additional-service .tv-additional-service-form {
+  --form-columns: 12;
+  --form-button-background-color: var(--main-accent-color, #1e293b);
+  --form-button-background-hover-color: var(--main-accent-hover, var(--link-hover-color, #0f172a));
+  --form-input-border-color: #cbd5e1;
+  --form-label-color: #1e293b;
+  --form-label-font-weight: 500;
+  --form-label-font-size: 15px;
+  --form-field-vert-gap: 16px;
+}
+
+main .tv-additional-service form {
+  display: block;
+}
+
+main .tv-additional-service .panel-wrapper {
+  display: block !important;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+main .tv-additional-service .field-wrapper {
+  margin: 0 0 20px;
+}
+
+main .tv-additional-service .submit-wrapper {
+  margin: 28px 0 0;
+}
+
+main .tv-additional-service .submit-wrapper button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 16px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 999px;
+  background: var(--main-accent-color, #1e293b);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+main .tv-additional-service .submit-wrapper button:hover {
+  background: var(--main-accent-hover, var(--link-hover-color, #0f172a));
+}
+
+main .tv-additional-service .submit-wrapper button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+main .tv-additional-service .form-message.success {
+  margin: 0 0 12px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  background: #ecfdf5;
+  color: #065f46;
+  font-size: 14px;
+}
+
+/* Toast shown after submit when no redirect is authored */
+.tas-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translate(-50%, 16px);
+  max-width: calc(100vw - 32px);
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #fff;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+}
+
+.tas-toast--visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Section headings */
+main .tv-additional-service .heading-wrapper {
+  margin: 28px 0 12px;
+}
+
+main .tv-additional-service .heading-wrapper:first-child,
+main .tv-additional-service .panel-wrapper > .heading-wrapper:first-child {
+  margin-top: 0;
+}
+
+main .tv-additional-service .heading-wrapper > label {
+  display: none;
+}
+
+main .tv-additional-service .heading-wrapper h2 {
+  margin: 0;
+  text-align: left;
+  font-size: 1.25rem !important;
+  line-height: 1.3 !important;
+  color: #1e293b;
+}
+
+
+main .tv-additional-service .tas-heading--regular h2 {
+  font-weight: 400;
+}
+
+/* Options stay in a single column and long labels wrap instead of running off the card */
+main .tv-additional-service form .checkbox-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 0 14px;
+}
+
+main .tv-additional-service form .checkbox-wrapper input[type="checkbox"] {
+  flex: none;
+  margin: 3px 0 0;
+  accent-color: var(--main-accent-color, #1e293b);
+}
+
+main .tv-additional-service form .checkbox-wrapper > label {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+@media (width <= 768px) {
+  main .tv-additional-service {
+    margin: 24px 0;
+    padding: 28px 20px;
+    border-radius: 8px;
+  }
+}

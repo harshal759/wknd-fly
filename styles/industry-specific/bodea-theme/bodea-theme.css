@@ -2081,3 +2081,122 @@ body.bodea-theme main .section.bodea-trial-right .cards-wrapper .cards.block > u
   font-weight: 300;
   font-family: "Adobe Clean Light", sans-serif;
 }
+/* Service / consultant detail pages: make the product-detail block read like the
+   hand-authored service sections (acc-rep-advisory and friends). Scoped to the
+   block inside an about-us-content section, so the hand-authored pages that share
+   that section class are untouched. */
+/* The block takes the copy column and spans both rows, exactly as the authored
+   sections' first .default-content-wrapper does - that is what leaves "Need more
+   help?" and its form in the second column, aligned to the top of the copy. */
+body.bodea-theme main .section.about-us-content .product-detail-wrapper {
+  grid-column: 1;
+  grid-row: span 2;
+  width: 100%;
+}
+
+/* The wrapper and the block each add 32px of gutter, which the authored sections
+   do not have - 64px in total, enough to pull the columns out of alignment. The
+   block's 32px top padding offsets the heading by the same amount, so the whole
+   padding goes rather than just the sides. */
+body.bodea-theme main .section.about-us-content .product-detail-wrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+body.bodea-theme main .section.about-us-content .product-detail.block {
+  padding: 0;
+}
+
+/* One column: heading, then image, then copy - the order the authored sections
+   put them in. .pd-content is flattened with display:contents so its heading and
+   description become grid items here and the image can sit between them. */
+body.bodea-theme main .section.about-us-content .product-detail .pd-container {
+  display: grid;
+  grid-template-columns: 100%;
+  column-gap: 0;
+  row-gap: 0;
+  align-items: start;
+}
+
+body.bodea-theme main .section.about-us-content .product-detail .pd-content {
+  display: contents;
+}
+
+body.bodea-theme main .section.about-us-content .product-detail .pd-name {
+  grid-row: 1;
+}
+
+/* No margins: the authored page's image sits 19px under the heading (the h2's own
+   bottom margin) with the copy flush against its base. */
+body.bodea-theme main .section.about-us-content .product-detail .pd-image {
+  grid-row: 2;
+  margin: 0;
+  position: static;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+body.bodea-theme main .section.about-us-content .product-detail .pd-description {
+  grid-row: 3;
+}
+
+/* No eyebrow on the reference pages. */
+body.bodea-theme main .section.about-us-content .product-detail .pd-category {
+  display: none;
+}
+
+/* Heading matches the section's own h2: 28px Adobe Clean with the brand underline. */
+body.bodea-theme main .section.about-us-content .product-detail .pd-name {
+  position: relative;
+  margin: 0.67em 0;
+  font-family: "Adobe Clean", sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: #2c2c2c;
+}
+
+body.bodea-theme main .section.about-us-content .product-detail .pd-name::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 90px;
+  height: 1px;
+  border-bottom: 2px solid #35b28c;
+}
+
+/* Body copy matches .default-content-wrapper p; no divider above it. */
+body.bodea-theme main .section.about-us-content .product-detail .pd-description {
+  margin: 0;
+  padding: 0;
+  border-top: 0;
+  font-size: 16px;
+  line-height: 2rem;
+  font-weight: 300;
+  color: #2c2c2c;
+}
+
+body.bodea-theme main .section.about-us-content .product-detail .pd-description p {
+  margin: 0 0 2rem;
+  font-size: 16px;
+  line-height: 2rem;
+  font-weight: 300;
+  color: #2c2c2c;
+}
+
+body.bodea-theme main .section.about-us-content .product-detail .pd-description p:last-child {
+  margin-bottom: 0;
+}
+
+/* The container is already a single column, so mobile only needs the image to
+   fill it; switching to flex here would lose the explicit grid-row order and let
+   the DOM order (image before heading) show through. */
+@media screen and (max-width: 900px) {
+  body.bodea-theme main .section.about-us-content .product-detail .pd-image {
+    width: 100%;
+  }
+}

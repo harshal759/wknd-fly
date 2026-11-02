@@ -142,6 +142,18 @@
   transform: translateX(0);
 }
 
+.action-button .button-container.align-left {
+  text-align: left;
+}
+
+.action-button .button-container.align-center {
+  text-align: center;
+}
+
+.action-button .button-container.align-right {
+  text-align: right;
+}
+
 /*
  * Hide all AUE metadata in action-button so title/style/label never show as text (author + live).
  * JS replaces block content with the button only; these rules hide props before JS or in EDS.
@@ -150,6 +162,7 @@
 .action-button [data-aue-prop="style"],
 .action-button [data-aue-prop="label"],
 .action-button [data-aue-prop="eventType"],
+.action-button [data-aue-prop="buttoneventtype"],
 .action-button [data-aue-prop="webhookUrl"],
 .action-button [data-aue-prop="formId"],
 .action-button [data-aue-prop="data"],
@@ -170,6 +183,7 @@
 .action-button div:has(> [data-aue-prop="style"]),
 .action-button div:has(> [data-aue-prop="label"]),
 .action-button div:has(> [data-aue-prop="eventType"]),
+.action-button div:has(> [data-aue-prop="buttoneventtype"]),
 .action-button div:has(> [data-aue-prop="webhookUrl"]),
 .action-button div:has(> [data-aue-prop="formId"]),
 .action-button div:has(> [data-aue-prop="data"]),

@@ -9,6 +9,7 @@
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Cards",
+              "model": "cards",
               "filter": "cards"
             }
           }
@@ -33,8 +34,494 @@
   ],
   "models": [
     {
+      "id": "cards",
+      "fields": [
+        {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "classes",
+          "label": "Custom Style Classes",
+          "value": "",
+          "description": "Add custom CSS class names (space-separated). Example: feature-cards, image-left, bg-light-gray"
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "boolean",
+          "name": "mobilerenderaslist",
+          "label": "Render as List",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Render cards as a single mobile list only when their redirection links resolve to valid app screens or products. Cards without valid screen links are skipped in screen lists. If no valid list can be built, individual cards are exported."
+        },
+        {
+          "component": "container",
+          "name": "mobileCardsLayoutProperties",
+          "label": "List Layout & Style",
+          "valueType": "string",
+          "collapsible": true,
+          "condition": {
+            "==": [
+              {
+                "var": "mobilerenderaslist"
+              },
+              true
+            ]
+          },
+          "fields": [
+            {
+              "component": "select",
+              "name": "mobilelayout",
+              "label": "Layout",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobilerenderaslist"
+                  },
+                  true
+                ]
+              },
+              "valueType": "string",
+              "value": "horizontal",
+              "options": [
+                {
+                  "name": "Vertical/Grid",
+                  "value": "vertical/grid"
+                },
+                {
+                  "name": "Horizontal",
+                  "value": "horizontal"
+                }
+              ]
+            },
+            {
+              "component": "select",
+              "name": "mobilesort",
+              "label": "Sort by",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobilerenderaslist"
+                  },
+                  true
+                ]
+              },
+              "valueType": "string",
+              "value": "none",
+              "options": [
+                {
+                  "name": "Name (A-Z)",
+                  "value": "alphabetical"
+                },
+                {
+                  "name": "Name (Z-A)",
+                  "value": "alphabetical-reverse"
+                },
+                {
+                  "name": "None",
+                  "value": "none"
+                }
+              ]
+            },
+            {
+              "component": "text",
+              "valueType": "string[]",
+              "name": "custommobilestyle",
+              "label": "Custom Mobile Style",
+              "value": "",
+              "multi": true,
+              "description": "Custom styles for the cards list on mobile",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobilerenderaslist"
+                  },
+                  true
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "name": "mobileCardsItemProperties",
+          "label": "Item Appearance",
+          "valueType": "string",
+          "collapsible": true,
+          "condition": {
+            "==": [
+              {
+                "var": "mobilerenderaslist"
+              },
+              true
+            ]
+          },
+          "fields": [
+            {
+              "component": "select",
+              "name": "mobileItemRenderer",
+              "label": "Item variant",
+              "valueType": "string",
+              "value": "overlay",
+              "description": "Item variant. Options are filtered by the current layout value.",
+              "options": [
+                {
+                  "name": "Image and text in one line (grid only)",
+                  "value": "image-text-one-line"
+                },
+                {
+                  "name": "Image and text overlay (grid + horizontal)",
+                  "value": "overlay"
+                },
+                {
+                  "name": "Image and text below (grid + horizontal)",
+                  "value": "stacked"
+                },
+                {
+                  "name": "Single Image (grid + horizontal)",
+                  "value": "image"
+                }
+              ],
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobilerenderaslist"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "number",
+              "name": "mobileItemsInRow",
+              "label": "Items in row",
+              "value": 1,
+              "valueType": "number",
+              "min": 1,
+              "max": 12,
+              "description": "Number of items per row (1-12). Shown only when Layout is Vertical/Grid.",
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobilerenderaslist"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "mobilelayout"
+                      },
+                      "vertical/grid"
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "component": "select",
+              "name": "mobileImageResize",
+              "label": "Image resize mode",
+              "valueType": "string",
+              "value": "cover",
+              "options": [
+                {
+                  "name": "Contain",
+                  "value": "contain"
+                },
+                {
+                  "name": "Cover",
+                  "value": "cover"
+                }
+              ],
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobilerenderaslist"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "number",
+              "name": "limit",
+              "label": "Item Limit",
+              "valueType": "number",
+              "value": 0,
+              "min": 0,
+              "description": "Maximum number of items to display in the list. Set to 0 to show all.",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobilerenderaslist"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "text",
+              "name": "mobileimagewidth",
+              "label": "Image width",
+              "value": "",
+              "valueType": "number",
+              "description": "Image width on mobile, in pixels. Leave empty for the default.",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobilerenderaslist"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "text",
+              "name": "mobileitemheight",
+              "label": "Item height",
+              "value": "",
+              "valueType": "number",
+              "description": "Item height on mobile, in pixels. Leave empty for the default.",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobilerenderaslist"
+                  },
+                  true
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "component": "container",
+          "name": "mobileCardsTypographyProperties",
+          "label": "Typography",
+          "valueType": "string",
+          "collapsible": true,
+          "condition": {
+            "==": [
+              {
+                "var": "mobilerenderaslist"
+              },
+              true
+            ]
+          },
+          "fields": [
+            {
+              "component": "select",
+              "name": "mobiletitlesize",
+              "label": "Title size",
+              "valueType": "string",
+              "value": "",
+              "description": "Leave on Default to use the app's size for the item variant.",
+              "options": [
+                {
+                  "name": "Default",
+                  "value": ""
+                },
+                {
+                  "name": "X-Small",
+                  "value": "labelSmall"
+                },
+                {
+                  "name": "Small",
+                  "value": "labelMedium"
+                },
+                {
+                  "name": "Medium",
+                  "value": "labelLarge"
+                },
+                {
+                  "name": "Large",
+                  "value": "titleMedium"
+                },
+                {
+                  "name": "X-Large",
+                  "value": "titleLarge"
+                }
+              ],
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobilerenderaslist"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "select",
+              "name": "mobiletitlefontweight",
+              "label": "Title font weight",
+              "valueType": "string",
+              "value": "regular",
+              "options": [
+                {
+                  "name": "Light",
+                  "value": "light"
+                },
+                {
+                  "name": "Regular",
+                  "value": "regular"
+                },
+                {
+                  "name": "Bold",
+                  "value": "bold"
+                },
+                {
+                  "name": "Black",
+                  "value": "black"
+                }
+              ],
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobilerenderaslist"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "boolean",
+              "name": "mobilehidesubtitle",
+              "label": "Hide subtitle",
+              "value": "false",
+              "valueType": "boolean",
+              "description": "Hide the subtitle of each list item",
+              "condition": {
+                "==": [
+                  {
+                    "var": "mobilerenderaslist"
+                  },
+                  true
+                ]
+              }
+            },
+            {
+              "component": "select",
+              "name": "mobilesubtitlesize",
+              "label": "Subtitle size",
+              "valueType": "string",
+              "value": "",
+              "description": "Leave on Default to use the app's size for the item variant.",
+              "options": [
+                {
+                  "name": "Default",
+                  "value": ""
+                },
+                {
+                  "name": "X-Small",
+                  "value": "labelSmall"
+                },
+                {
+                  "name": "Small",
+                  "value": "labelMedium"
+                },
+                {
+                  "name": "Medium",
+                  "value": "labelLarge"
+                },
+                {
+                  "name": "Large",
+                  "value": "titleMedium"
+                },
+                {
+                  "name": "X-Large",
+                  "value": "titleLarge"
+                }
+              ],
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobilerenderaslist"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "!=": [
+                      {
+                        "var": "mobilehidesubtitle"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "component": "select",
+              "name": "mobilesubtitlefontweight",
+              "label": "Subtitle font weight",
+              "valueType": "string",
+              "value": "light",
+              "options": [
+                {
+                  "name": "Light",
+                  "value": "light"
+                },
+                {
+                  "name": "Regular",
+                  "value": "regular"
+                },
+                {
+                  "name": "Bold",
+                  "value": "bold"
+                },
+                {
+                  "name": "Black",
+                  "value": "black"
+                }
+              ],
+              "condition": {
+                "and": [
+                  {
+                    "==": [
+                      {
+                        "var": "mobilerenderaslist"
+                      },
+                      true
+                    ]
+                  },
+                  {
+                    "!=": [
+                      {
+                        "var": "mobilehidesubtitle"
+                      },
+                      true
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "card",
       "fields": [
+        {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
         {
           "component": "reference",
           "valueType": "string",
@@ -214,11 +701,103 @@
           "description": "Optional hex color for card text (e.g. #fff, #000000, or 333). Leave empty for default."
         },
         {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "select",
+          "name": "mobilecardstyle",
+          "label": "Card Type",
+          "valueType": "string",
+          "value": "overlay",
+          "options": [
+            {
+              "name": "Image and text in one line",
+              "value": "image-text-one-line"
+            },
+            {
+              "name": "Image and text overlay",
+              "value": "overlay"
+            },
+            {
+              "name": "Image and text below",
+              "value": "stacked"
+            },
+            {
+              "name": "Image partially overlayed",
+              "value": "partial-overlay"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "mobileimagestyle",
+          "label": "Image Resize Mode",
+          "valueType": "string",
+          "value": "",
+          "options": [
+            {
+              "name": "Contain",
+              "value": "contain"
+            },
+            {
+              "name": "Cover",
+              "value": "cover"
+            }
+          ]
+        },
+        {
+          "component": "boolean",
+          "name": "mobileshowbutton",
+          "label": "Show Button",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Show a button on the card. Its text and link come from the first link in the card text."
+        },
+        {
+          "component": "select",
+          "name": "mobilebuttonvariant",
+          "label": "Button Variant",
+          "options": [
+            {
+              "name": "Primary",
+              "value": "contained"
+            },
+            {
+              "name": "Secondary",
+              "value": "contained-tonal"
+            },
+            {
+              "name": "Outlined",
+              "value": "outlined"
+            },
+            {
+              "name": "Quiet",
+              "value": "text"
+            },
+            {
+              "name": "Elevated",
+              "value": "elevated"
+            }
+          ],
+          "description": "Leave empty to follow the CTA Style."
+        },
+        {
           "component": "text",
           "name": "mobilebuttoneventtype",
           "label": "Mobile Button Event Type",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "value": "",
+          "valueType": "string[]",
+          "description": "Custom styles for the card on mobile",
+          "multi": true
         }
       ]
     }

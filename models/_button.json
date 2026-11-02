@@ -20,6 +20,11 @@
       "id": "button",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "aem-content",
           "name": "link",
           "label": "Link"
@@ -151,6 +156,93 @@
           "label": "Border Width",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "select",
+          "name": "mobilebuttonvariant",
+          "label": "Variant",
+          "options": [
+            {
+              "name": "Primary",
+              "value": "contained"
+            },
+            {
+              "name": "Secondary",
+              "value": "contained-tonal"
+            },
+            {
+              "name": "Outlined",
+              "value": "outlined"
+            },
+            {
+              "name": "Quiet",
+              "value": "text"
+            },
+            {
+              "name": "Elevated",
+              "value": "elevated"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "mobilealignment",
+          "label": "Alignment",
+          "options": [
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Center",
+              "value": "center"
+            },
+            {
+              "name": "Right",
+              "value": "right"
+            },
+            {
+              "name": "Stretch",
+              "value": "stretch"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "mobilebuttonicon",
+          "label": "Icon",
+          "value": "",
+          "valueType": "string",
+          "description": "Icon name shown on the mobile button, e.g. credit-card"
+        },
+        {
+          "component": "text",
+          "name": "mobilebuttoneventtype",
+          "label": "Mobile Button Event Type",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "mobilemessage",
+          "label": "Message",
+          "value": "",
+          "valueType": "string",
+          "description": "Message shown on the mobile app after the button's event runs"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "value": "",
+          "multi": true,
+          "description": "Custom styles for the button on mobile"
         }
       ]
     }

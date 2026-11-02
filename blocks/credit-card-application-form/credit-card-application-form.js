@@ -131,12 +131,12 @@ function buildCreditCardApplicationFormDef(config = {}) {
     fieldType: 'form',
     appliedCssClassNames: 'credit-card-application-form-form credit-card-application-form-wizard',
     items: [
-      {
+      ...(formTitle ? [{
         id: 'heading-credit-card-application-form',
         fieldType: 'heading',
         label: { value: formTitle },
         appliedCssClassNames: 'col-12 credit-card-application-form-heading',
-      },
+      }] : []),
       {
         id: 'panel-wizard',
         name: 'wizard',
@@ -283,7 +283,7 @@ export default async function decorate(block) {
   creditCardApplicationFormWizardTitle =
   (config.formtitle ?? config['form-title'] ?? '')
     .toString()
-    .trim() || 'Credit Card Application';
+    .trim();
 
   creditCardApplicationFormWizardName =
     (config.formname ?? config['form-name'] ?? '')

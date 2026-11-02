@@ -125,10 +125,26 @@
         },
         {
           "component": "text",
+          "name": "mobileFormID",
+          "label": "Mobile Form ID",
+          "value": "",
+          "valueType": "string",
+          "description": "Optional form ID to associate with this form in the mobile app."
+        },
+        {
+          "component": "text",
           "name": "mobilebuttoneventtype",
           "label": "Mobile Button Event Type",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "mobileRedirectUrl",
+          "label": "Mobile Redirect URL",
+          "value": "",
+          "valueType": "string",
+          "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
         },
         {
           "component": "text",
@@ -136,7 +152,7 @@
           "label": "Custom Mobile Style",
           "valueType": "string[]",
           "multi": true,
-          "description": "One style per row, as key:value (e.g. width:250, padding:0)"
+          "description": "One style per row, as key:value (e.g. checkbox-width:250 sets the width of the checkbox rows)"
         }
       ]
     }

@@ -22,6 +22,11 @@
       "id": "create-account",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "select",
           "name": "variant",
           "label": "Theme Variant",
@@ -56,8 +61,8 @@
               "name": "Bodea",
               "value": "bodea"
             },
-            { 
-              "name": "Exp News", 
+            {
+              "name": "Exp News",
               "value": "expnews"
             }
           ]
@@ -76,8 +81,14 @@
           "value": "single",
           "valueType": "string",
           "options": [
-            { "name": "Default Form (Single-Page)", "value": "single" },
-            { "name": "Wizard (Multi-Step)", "value": "wizard" }
+            {
+              "name": "Default Form (Single-Page)",
+              "value": "single"
+            },
+            {
+              "name": "Wizard (Multi-Step)",
+              "value": "wizard"
+            }
           ],
           "description": "Choose between the default single page form or a multi-step wizard experience."
         },
@@ -177,11 +188,40 @@
           "description": "Space-separated class names to add to the block"
         },
         {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "text",
+          "name": "mobileFormID",
+          "label": "Mobile Form ID",
+          "value": "",
+          "valueType": "string",
+          "description": "Optional form ID to associate with this form in the mobile app."
+        },
+        {
           "component": "text",
           "name": "mobilebuttoneventtype",
           "label": "Mobile Button Event Type",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "mobileRedirectUrl",
+          "label": "Mobile Redirect URL",
+          "value": "",
+          "valueType": "string",
+          "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "valueType": "string[]",
+          "multi": true,
+          "description": "One style per row, as key:value (e.g. width:250, padding:0)"
         }
       ]
     }

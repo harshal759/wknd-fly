@@ -1,6 +1,7 @@
 import { div, a, span } from '../../scripts/dom-helpers.js';
 import { isAuthorEnvironment } from '../../scripts/scripts.js';
 import { resolveAnchorValue } from '../../scripts/aem.js';
+import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 
 function getTextFromSelector(block, selector) {
   const el = block.querySelector(selector);
@@ -46,6 +47,8 @@ export default function decorate(block) {
   const rowLabel = normalizeRowValue(rowVal(2));
   const rowTitle = normalizeRowValue(rowVal(3));
   const rowStyle = normalizeRowValue(rowVal(4));
+  const rowAlignment = normalizeRowValue(rowVal(5));
+  const rowButtonEventType = normalizeRowValue(rowVal(6));
 
   const buttonLink = rowLinkUrl || '#';
 
@@ -59,8 +62,17 @@ export default function decorate(block) {
 
   const buttonStyle = (getTextFromSelector(block, '[data-aue-prop="style"]') || rowStyle || 'default-button').trim()
     || 'default-button';
+  const alignment = (getTextFromSelector(block, '[data-aue-prop="alignment"]') || rowAlignment || 'left').trim().toLowerCase();
+  const buttonEventType = (
+    getTextFromSelector(block, '[data-aue-prop="buttoneventtype"]')
+    || getTextFromSelector(block, '[data-aue-prop="eventType"]')
+    || rowButtonEventType
+    || ''
+  ).trim();
 
-  const buttonElement = div({ class: `button-container ${buttonStyle}` },
+  const safeAlignment = ['left', 'center', 'right'].includes(alignment) ? alignment : 'left';
+
+  const buttonElement = div({ class: `button-container ${buttonStyle} align-${safeAlignment}` },
     a({
       href: buttonLink,
       class: 'button',
@@ -69,6 +81,13 @@ export default function decorate(block) {
       span({ class: 'button-text' }, buttonLabel)
     )
   );
+
+  if (buttonEventType) {
+    buttonElement.querySelector('a.button')?.setAttribute('data-button-event-type', buttonEventType);
+    buttonElement.querySelector('a.button')?.addEventListener('click', () => {
+      dispatchCustomEvent(buttonEventType);
+    });
+  }
 
   /* Replace all block content with the single button so AUE metadata never shows (author + live) */
   block.replaceChildren(buttonElement);

@@ -20,6 +20,11 @@
       "id": "text",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "richtext",
           "name": "text",
           "value": "",
@@ -33,6 +38,20 @@
           "label": "Text color",
           "valueType": "string",
           "description": "Hex color for text (e.g. #000000 or 333). Leave empty for default."
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "value": "",
+          "valueType": "string[]",
+          "multi": true,
+          "description": "Custom styles for the text on mobile"
         }
       ]
     }

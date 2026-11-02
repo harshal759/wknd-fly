@@ -1,0 +1,47 @@
+{
+  "definitions": [
+    {
+      "title": "WebView",
+      "id": "web-view",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "WebView",
+              "model": "web-view"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "web-view",
+      "fields": [
+        {
+          "component": "text",
+          "name": "mobileNickname",
+          "label": "Nickname",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "mobileUrl",
+          "label": "URL",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Styles",
+          "valueType": "string",
+          "multi": true,
+          "description": "Mobile styles as key:value pairs"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

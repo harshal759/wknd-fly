@@ -29,6 +29,22 @@
         },
         {
           "component": "text",
+          "name": "started-event-type",
+          "label": "Started Event Type",
+          "value": "",
+          "valueType": "string",
+          "description": "Launch/Analytics event fired when video playback starts"
+        },
+        {
+          "component": "text",
+          "name": "ended-event-type",
+          "label": "Ended Event Type",
+          "value": "",
+          "valueType": "string",
+          "description": "Launch/Analytics event fired when video playback ends"
+        },
+        {
+          "component": "text",
           "name": "custom-class",
           "label": "Custom class",
           "value": "",

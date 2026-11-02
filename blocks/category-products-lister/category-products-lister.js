@@ -4,6 +4,7 @@ import { dispatchCustomEvent } from "../../scripts/custom-events.js";
 import {
   getEnvironmentValue,
   getHostname,
+  getLanguage,
 } from '../../scripts/utils.js';
 
 const PUBLISH_GRAPHQL_PROXY_ENDPOINT = "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/fetch-product-information";
@@ -44,6 +45,7 @@ function coerceConfigScalar(v) {
 
 function getDefaultProductDetailPath(isAuthor) {
   const currentPath = window.location.pathname;
+  if (!isAuthor && currentPath === '/') return `/${getLanguage()}/product`;
   const basePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
   return isAuthor ? `${basePath}/product.html` : `${basePath}/product`;
 }
@@ -217,25 +219,6 @@ function readCardsPerRow(cfg, block) {
   return Math.min(6, Math.max(1, n));
 }
 
-function renderHeader(container, selectedTags) {
-  if (!selectedTags || selectedTags.length === 0) return;
-  const wrap = document.createElement("div");
-  wrap.className = "cpl-tags";
-  const list = Array.isArray(selectedTags)
-    ? selectedTags
-    : `${selectedTags}`.split(",");
-  list
-    .map((t) => `${t}`.trim())
-    .filter(Boolean)
-    .forEach((tag) => {
-      const chip = document.createElement("span");
-      chip.className = "cpl-tag";
-      chip.textContent = tag;
-      wrap.append(chip);
-    });
-  container.append(wrap);
-}
-
 function renderCarousel(block, items, cfg, isAuthor, redirectUrl = "") {
   const heading = coerceConfigScalar(cfg?.["heading"] || cfg?.["block-title"]);
   const learnMoreLabel = coerceConfigScalar(cfg?.["learn-more-label"]) || "Learn more";
@@ -268,19 +251,29 @@ function renderCarousel(block, items, cfg, isAuthor, redirectUrl = "") {
   track.className = "cpl-carousel-track";
 
   items.forEach((item, i) => {
-    const { damImageURL, image: itemImage } = item || {};
+    const { damImageURL, image: itemImage, externalImageURL } = item || {};
     const imgData = damImageURL || itemImage || {};
     const slide = document.createElement("div");
     slide.className = "cpl-carousel-slide";
     if (i === 0) slide.classList.add("active");
 
+    let picture = null;
     if (imgData && (imgData._publishUrl || imgData._authorUrl || imgData._dynamicUrl)) {
-      const picture = createLumaProductImagePicture(imgData, item.name || "Product image", {
+      picture = createLumaProductImagePicture(imgData, item.name || "Product image", {
         isAuthor,
         eager: i === 0,
       });
-      slide.append(picture);
     }
+    if (!picture && externalImageURL) {
+      picture = document.createElement("picture");
+      const img = document.createElement("img");
+      img.src = externalImageURL;
+      img.alt = item.name || "Product image";
+      img.loading = i === 0 ? "eager" : "lazy";
+      if (i === 0) img.setAttribute("fetchpriority", "high");
+      picture.append(img);
+    }
+    if (picture) slide.append(picture);
     track.append(slide);
   });
 
@@ -324,6 +317,8 @@ export default async function decorate(block) {
   // Check if we're in author environment
   const isAuthor = isAuthorEnvironment();
   const cfg = readBlockConfig(block) || {};
+  const rawLimit = Number(coerceConfigScalar(cfg.limit));
+  const limit = Number.isFinite(rawLimit) ? Math.max(0, Math.floor(rawLimit)) : 0;
 
   const rawRedirectUrl = cfg?.["redirect-url"] || cfg?.redirecturl || cfg?.redirectUrl;
   const redirectUrl = normalizeRedirectUrl(rawRedirectUrl);
@@ -384,7 +379,7 @@ export default async function decorate(block) {
 
   const allItems = await fetchProducts(folderHref);
   const categoryItems = filterByCategories(allItems, tags);
-  let items = categoryItems;
+  const items = limit > 0 ? categoryItems.slice(0, limit) : categoryItems;
 
   if (styleVariant === "carousel") {
     if (!items || items.length === 0) {
@@ -397,8 +392,6 @@ export default async function decorate(block) {
     renderCarousel(block, items, cfg, isAuthor, redirectUrl);
     return;
   }
-
-  renderHeader(block, tags);
 
   const grid = document.createElement("div");
   grid.className = "cpl-grid";

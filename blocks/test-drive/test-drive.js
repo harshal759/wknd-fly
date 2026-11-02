@@ -5,6 +5,7 @@ import { syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync, fetchBut
 
 const DEFAULT_TIME_SLOTS = ['9 AM', '10 AM', '11 AM'];
 const DEFAULT_DAYS_SHOWN = 3;
+const DEFAULT_MOBILE_DAYS_SHOWN = 2;
 const NAV_ARROW_ICON = `
   <svg viewBox="0 0 36 36" class="td-slot-picker-nav-icon" focusable="false" aria-hidden="true" role="img">
     <path fill-rule="evenodd" d="M24,18v0a1.988,1.988,0,0,1-.585,1.409l-7.983,7.98a2,2,0,1,1-2.871-2.772l.049-.049L19.181,18l-6.572-6.57a2,2,0,0,1,2.773-2.87l.049.049,7.983,7.98A1.988,1.988,0,0,1,24,18Z"></path>
@@ -180,8 +181,13 @@ function buildTimeSlotPicker(config = {}, dataLayerKey) {
   const dailyOptions = rawSlots
     ? rawSlots.split(',').map((s) => s.trim()).filter(Boolean)
     : DEFAULT_TIME_SLOTS;
-  const daysShown = parseInt(config['days-shown'], 10) || DEFAULT_DAYS_SHOWN;
+  let daysShown = parseInt(config['days-shown'], 10) || DEFAULT_DAYS_SHOWN;
+  let mobileDaysShown = parseInt(config['mobile-days-shown'], 10) || DEFAULT_MOBILE_DAYS_SHOWN;
   const multiple = isTruthy(config['multiple-slots']);
+
+  if (screen.width <= 480) {
+    daysShown = mobileDaysShown;
+  }
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);

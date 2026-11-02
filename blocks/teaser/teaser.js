@@ -157,12 +157,6 @@ export default function decorate(block) {
 
   teaser.querySelector('.teaser-title').innerHTML = properties.title ? rteContent : 'Title';
   block.innerHTML = '';
-  ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'].forEach((tag) => {
-    const elements = teaser.querySelectorAll(tag);
-    elements.forEach((el, elIndex) => {
-      el.id = `teaser_0_${tag}_${elIndex}`;
-    });
-  });
   block.appendChild(teaser);
 
   // add observer for video and listeners for play/pause

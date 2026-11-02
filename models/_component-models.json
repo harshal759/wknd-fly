@@ -123,6 +123,21 @@
         "label": "Page Category"
       },
       {
+        "component": "text",
+        "name": "mobileIcon",
+        "label": "Mobile Icon",
+        "value": "",
+        "valueType": "string",
+        "description": "DAM path of the icon used for the mobile event on this page"
+      },
+      {
+        "component": "text",
+        "name": "mobilepageeventtype",
+        "label": "Mobile Page Event Type",
+        "value": "",
+        "valueType": "string"
+      },
+      {
         "component": "aem-tag",
         "name": "cq:tags",
         "label": "Tags",
@@ -135,12 +150,249 @@
     "id": "cards",
     "fields": [
       {
+        "component": "tab",
+        "label": "Basic",
+        "name": "basic"
+      },
+      {
         "component": "text",
         "valueType": "string",
         "name": "classes",
         "label": "Custom Style Classes",
         "value": "",
         "description": "Add custom CSS class names (space-separated). Example: feature-cards, image-left, bg-light-gray"
+      },
+      {
+        "component": "tab",
+        "label": "Mobile Specific",
+        "name": "mobileSpecific"
+      },
+      {
+        "component": "boolean",
+        "name": "mobilerenderaslist",
+        "label": "Render as List",
+        "value": "false",
+        "valueType": "boolean",
+        "description": "Render cards as a single mobile list only when their redirection links resolve to valid app screens or products. Cards without valid screen links are skipped in screen lists. If no valid list can be built, individual cards are exported."
+      },
+      {
+        "component": "container",
+        "name": "mobileCardsLayoutProperties",
+        "label": "List Layout & Style",
+        "valueType": "string",
+        "collapsible": true,
+        "condition": {
+          "==": [
+            {
+              "var": "mobilerenderaslist"
+            },
+            true
+          ]
+        },
+        "fields": [
+          {
+            "component": "select",
+            "name": "mobilelayout",
+            "label": "Layout",
+            "valueType": "string",
+            "value": "horizontal",
+            "options": [
+              {
+                "name": "Vertical/Grid",
+                "value": "vertical/grid"
+              },
+              {
+                "name": "Horizontal",
+                "value": "horizontal"
+              }
+            ]
+          },
+          {
+            "component": "select",
+            "name": "mobilesort",
+            "label": "Sort by",
+            "valueType": "string",
+            "value": "none",
+            "options": [
+              {
+                "name": "Name (A-Z)",
+                "value": "alphabetical"
+              },
+              {
+                "name": "Name (Z-A)",
+                "value": "alphabetical-reverse"
+              },
+              {
+                "name": "None",
+                "value": "none"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "valueType": "string[]",
+            "name": "custommobilestyle",
+            "label": "Custom Mobile Style",
+            "value": "",
+            "multi": true,
+            "description": "Custom styles for the cards list on mobile"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "mobileCardsItemProperties",
+        "label": "Item Appearance",
+        "valueType": "string",
+        "collapsible": true,
+        "condition": {
+          "==": [
+            {
+              "var": "mobilerenderaslist"
+            },
+            true
+          ]
+        },
+        "fields": [
+          {
+            "component": "select",
+            "name": "mobileItemRenderer",
+            "label": "Item variant",
+            "valueType": "string",
+            "value": "overlay",
+            "description": "Item variant. Options are filtered by the current layout value.",
+            "options": [
+              {
+                "name": "Image and text in one line (grid only)",
+                "value": "image-text-one-line"
+              },
+              {
+                "name": "Image and text overlay (grid + horizontal)",
+                "value": "overlay"
+              },
+              {
+                "name": "Image and text below (grid + horizontal)",
+                "value": "stacked"
+              },
+              {
+                "name": "Single Image (grid + horizontal)",
+                "value": "image"
+              }
+            ],
+            "condition": {
+              "==": [
+                {
+                  "var": "mobilerenderaslist"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "number",
+            "name": "mobileItemsInRow",
+            "label": "Items in row",
+            "value": 1,
+            "valueType": "number",
+            "min": 1,
+            "max": 12,
+            "description": "Number of items per row (1-12). Shown only when Layout is Vertical/Grid.",
+            "condition": {
+              "and": [
+                {
+                  "==": [
+                    {
+                      "var": "mobilerenderaslist"
+                    },
+                    true
+                  ]
+                },
+                {
+                  "==": [
+                    {
+                      "var": "mobilelayout"
+                    },
+                    "vertical/grid"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "component": "select",
+            "name": "mobileImageResize",
+            "label": "Image resize mode",
+            "valueType": "string",
+            "value": "cover",
+            "options": [
+              {
+                "name": "Contain",
+                "value": "contain"
+              },
+              {
+                "name": "Cover",
+                "value": "cover"
+              }
+            ],
+            "condition": {
+              "==": [
+                {
+                  "var": "mobilerenderaslist"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "number",
+            "name": "limit",
+            "label": "Item Limit",
+            "valueType": "number",
+            "value": 0,
+            "min": 0,
+            "description": "Maximum number of items to display in the list. Set to 0 to show all.",
+            "condition": {
+              "==": [
+                {
+                  "var": "mobilerenderaslist"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "text",
+            "name": "mobileimagewidth",
+            "label": "Image width",
+            "value": "",
+            "valueType": "number",
+            "description": "Image width on mobile, in pixels. Leave empty for the default.",
+            "condition": {
+              "==": [
+                {
+                  "var": "mobilerenderaslist"
+                },
+                true
+              ]
+            }
+          },
+          {
+            "component": "text",
+            "name": "mobileitemheight",
+            "label": "Item height",
+            "value": "",
+            "valueType": "number",
+            "description": "Item height on mobile, in pixels. Leave empty for the default.",
+            "condition": {
+              "==": [
+                {
+                  "var": "mobilerenderaslist"
+                },
+                true
+              ]
+            }
+          }
+        ]
       }
     ]
   },
@@ -1322,25 +1574,7 @@
     ]
   },
   {
-    "id": "plan-application",
-    "fields": [
-      {
-        "component": "text",
-        "name": "defaultPlanName",
-        "label": "Default Plan Name",
-        "value": "Medicare Extra (HMO) Plan",
-        "valueType": "string",
-        "description": "Fallback name if no plan URL parameter is provided."
-      },
-      {
-        "component": "text",
-        "name": "custom-class",
-        "label": "Custom class",
-        "value": "",
-        "valueType": "string",
-        "description": "Space-separated class names to add to the block"
-      }
-    ]
+    "...": "./_section.json#/models"
   },
   {
     "...": "../blocks/*/_*.json#/models"

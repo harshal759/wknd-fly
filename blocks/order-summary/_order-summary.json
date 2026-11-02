@@ -22,6 +22,11 @@
       "id": "order-summary",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "text",
           "name": "checkouteventtype",
           "label": "Checkout Event Type",
@@ -52,6 +57,34 @@
           "value": "",
           "valueType": "string",
           "description": "Space-separated class names to add to the block"
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "text",
+          "name": "mobileFormID",
+          "label": "Mobile Form ID",
+          "value": "",
+          "valueType": "string",
+          "description": "Optional form ID to associate with this form in the mobile app."
+        },
+        {
+          "component": "text",
+          "name": "mobilebuttoneventtype",
+          "label": "Mobile Button Event Type",
+          "value": "",
+          "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "mobileRedirectUrl",
+          "label": "Mobile Redirect URL",
+          "value": "",
+          "valueType": "string",
+          "description": "Page to open in the mobile app after confirming the order. Leave empty to keep the current mobile redirect default."
         }
       ]
     }

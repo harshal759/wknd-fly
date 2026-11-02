@@ -1,7 +1,53 @@
 import { readBlockConfig } from "../../scripts/aem.js";
 import { normalizeAemPath } from "../../scripts/scripts.js";
 import { dispatchCustomEvent } from "../../scripts/custom-events.js";
-import { submitToWebhook, fetchButtonDataSheet } from "../../scripts/form-data-layer.js";
+import { submitToWebhook, fetchButtonDataSheet, syncFormDataLayer, DEFAULT_FORM_FIELD_MAP, attachLiveFormSync } from "../../scripts/form-data-layer.js";
+
+function getConfigValue(config, ...keys) {
+  for (const key of keys) {
+    const value = config?.[key];
+    if (value !== undefined && value !== null && String(value).trim() !== '') {
+      return String(value).trim();
+    }
+  }
+  return '';
+}
+
+function buildInsurancePlanWizardPayload(currentStepIndex, totalSteps, config = {}) {
+  if (!Number.isFinite(totalSteps) || totalSteps <= 0) return null;
+  const wizardName = getConfigValue(config, 'form-name', 'formname') || 'Insurance Plan Selection';
+  const wizardTitle = getConfigValue(config, 'form-title', 'formtitle') || getConfigValue(config, 'formHeading', 'formheading') || 'Insurance Plan Selection';
+  const safeIndex = Number.isFinite(currentStepIndex)
+    ? Math.min(Math.max(currentStepIndex, 0), totalSteps - 1)
+    : 0;
+  const steps = Array.from({ length: totalSteps }, (_, idx) => ({
+    name: `insurance-plan-selection-step-${idx + 1}`,
+    title: `${wizardTitle} - Step ${idx + 1}`,
+  }));
+  return { name: wizardName, title: wizardTitle, steps, currentStep: safeIndex + 1 };
+}
+
+function updateInsurancePlanWizardDataLayer(wizard, stepIndex, config = {}) {
+  if (!wizard || !window.updateDataLayer) return;
+  const totalSteps = wizard.querySelectorAll('.panel-wrapper').length;
+  const payload = buildInsurancePlanWizardPayload(stepIndex, totalSteps, config);
+  if (!payload) return;
+  window.updateDataLayer({ wizard: payload });
+}
+
+function getInsurancePlanWizardStepIndex(wizard) {
+  const current = wizard?.querySelector('.current-wizard-step');
+  if (current && typeof current.dataset.index !== 'undefined') {
+    const index = Number.parseInt(current.dataset.index, 10);
+    if (!Number.isNaN(index)) return index;
+  }
+  const first = wizard?.querySelector('.panel-wrapper');
+  if (first && typeof first.dataset.index !== 'undefined') {
+    const fallbackIndex = Number.parseInt(first.dataset.index, 10);
+    if (!Number.isNaN(fallbackIndex)) return fallbackIndex;
+  }
+  return 0;
+}
 
 // ============================================================
 //  INSURANCE PLAN WIZARD DEFINITION (3 Steps)
@@ -91,7 +137,7 @@ function applyButtonConfigToSubmitButton(block, config) {
 // ============================================================
 //  WIZARD NAVIGATION & STEP INDICATOR
 // ============================================================
-function setupWizardStepIndicator(block) {
+function setupWizardStepIndicator(block, config = {}, stepEvent = '', startedEvent = '') {
   const wizard = block.querySelector('form .wizard');
   if (!wizard) return;
 
@@ -132,8 +178,31 @@ function setupWizardStepIndicator(block) {
     }
   };
 
+  const form = block.querySelector('form');
+  const handleNavigation = (event) => {
+    const current = wizard.querySelector('.current-wizard-step');
+    const idx = current ? parseInt(current.dataset.index, 10) : 0;
+    const prevIndex = Number.isFinite(event?.detail?.prevStep?.index)
+      ? event.detail.prevStep.index
+      : idx - 1;
+    if (form) {
+      syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
+    }
+    updateInsurancePlanWizardDataLayer(wizard, idx, config);
+    updateWizardUI();
+    if (stepEvent && Number.isFinite(prevIndex) && idx > prevIndex) {
+      dispatchCustomEvent(stepEvent);
+    }
+  };
+
   updateWizardUI();
-  wizard.addEventListener('wizard:navigate', updateWizardUI);
+  wizard.addEventListener('wizard:navigate', handleNavigation);
+
+  if (form && typeof window.updateDataLayer === 'function') {
+    const initialIndex = getInsurancePlanWizardStepIndex(wizard);
+    updateInsurancePlanWizardDataLayer(wizard, initialIndex, config);
+    if (startedEvent) dispatchCustomEvent(startedEvent);
+  }
 
   // Append progress dots to the main header, NOT the buttons wrapper
   const headerDiv = block.querySelector('.plan-selection-header');
@@ -169,7 +238,30 @@ function attachSubmitHandler(block, config) {
     });
 
     try {
-      localStorage.setItem("project_plan_selection", JSON.stringify(formData));
+      syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
+      const wizard = form.querySelector('.wizard');
+      const current = wizard?.querySelector('.current-wizard-step');
+      const currentStepIndex = current ? Number.parseInt(current.dataset.index, 10) : 0;
+      if (typeof window.updateDataLayer === 'function') {
+        const planSelection = {};
+        const coverageFor = (formData.coverageFor || '').trim();
+        const careFrequency = (formData.careFrequency || '').trim();
+        const coveragePreference = (formData.costPreference || '').trim();
+
+        if (coverageFor) planSelection.coverageFor = coverageFor;
+        if (careFrequency) planSelection.careFrequency = careFrequency;
+        if (coveragePreference) planSelection.coveragePreference = coveragePreference;
+
+        const dataLayerPayload = {
+          wizard: buildInsurancePlanWizardPayload(currentStepIndex, wizard ? wizard.querySelectorAll('.panel-wrapper').length : 3, config),
+        };
+
+        if (Object.keys(planSelection).length > 0) {
+          dataLayerPayload.planSelection = planSelection;
+        }
+
+        window.updateDataLayer(dataLayerPayload);
+      }
 
       const submitBtn = form.querySelector("button[type='submit']");
       if (submitBtn) {
@@ -208,13 +300,49 @@ function attachSubmitHandler(block, config) {
 // ============================================================
 //  DECORATE
 // ============================================================
+const insurancePlanAbandonEvents = {
+  initialized: false,
+  dispatched: false,
+  submitting: false,
+  type: '',
+};
+
+function dispatchInsurancePlanAbandonedEvent() {
+  if (insurancePlanAbandonEvents.dispatched || insurancePlanAbandonEvents.submitting) return;
+  insurancePlanAbandonEvents.dispatched = true;
+  dispatchCustomEvent(insurancePlanAbandonEvents.type);
+}
+
+function handleInsurancePlanBeforeUnload() {
+  if (insurancePlanAbandonEvents.submitting) return;
+  dispatchInsurancePlanAbandonedEvent();
+}
+
+function handleInsurancePlanVisibilityChange() {
+  if (insurancePlanAbandonEvents.submitting) return;
+  if (document.visibilityState === 'hidden') {
+    dispatchInsurancePlanAbandonedEvent();
+  }
+}
+
+function setupInsurancePlanAbandonEvents(abandonedEvent) {
+  if (insurancePlanAbandonEvents.initialized) return;
+  insurancePlanAbandonEvents.initialized = true;
+  insurancePlanAbandonEvents.type = abandonedEvent;
+  window.addEventListener('beforeunload', handleInsurancePlanBeforeUnload);
+  document.addEventListener('visibilitychange', handleInsurancePlanVisibilityChange);
+}
+
 export default async function decorate(block) {
   const config = readBlockConfig(block) || {};
 
   [...block.children].forEach((row) => { row.style.display = 'none'; });
 
-  const headingText = config.formHeading || config.formheading || "Which type of health insurance should I get?";
+  const headingText = getConfigValue(config, 'formHeading', 'formheading') || "Which type of health insurance should I get?";
   const subtitleText = config.formSubtitle || config.formsubtitle || "Take our free, short quiz to learn which type of health insurance might be best for you!";
+  const startedEvent = (config['started-event-type'] || '').toString().trim();
+  const stepEvent = (config['step-event-type'] || '').toString().trim();
+  const abandonedEvent = (config['abandoned-event-type'] || '').toString().trim();
   
   const headerDiv = document.createElement('div');
   headerDiv.className = 'plan-selection-header';
@@ -242,7 +370,13 @@ export default async function decorate(block) {
 
   setTimeout(() => {
     applyButtonConfigToSubmitButton(block, config);
-    setupWizardStepIndicator(block);
+    setupWizardStepIndicator(block, config, stepEvent, startedEvent);
+    const form = block.querySelector('form');
+    if (form) {
+      syncFormDataLayer(form, DEFAULT_FORM_FIELD_MAP);
+      attachLiveFormSync(form, DEFAULT_FORM_FIELD_MAP);
+    }
     attachSubmitHandler(block, config);
   }, 100);
+  setupInsurancePlanAbandonEvents(abandonedEvent);
 }

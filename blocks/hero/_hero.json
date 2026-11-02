@@ -21,6 +21,11 @@
       "id": "hero",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",
@@ -225,11 +230,69 @@
           "description": "Keep the hero text overlay enabled. Turn off for transparent text background and darker image."
         },
         {
-          "component": "text",
-          "name": "mobilebuttoneventtype",
-          "label": "Mobile Button Event Type",
-          "value": "",
-          "valueType": "string"
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "select",
+          "name": "mobilecardstyle",
+          "label": "Card Type",
+          "valueType": "string",
+          "value": "overlay",
+          "condition": {
+            "or": [
+              { "==": [ { "var": "herolayout" }, "image-left" ] },
+              { "==": [ { "var": "herolayout" }, "image-right" ] }
+            ]
+          },
+          "description": "How the app shows the hero when its layout is Image Left or Image Right. Defaults to image and text overlay.",
+          "options": [
+            {
+              "name": "Image and text in one line",
+              "value": "image-text-one-line"
+            },
+            {
+              "name": "Image and text overlay",
+              "value": "overlay"
+            },
+            {
+              "name": "Image and text below",
+              "value": "stacked"
+            },
+            {
+              "name": "Image partially overlayed",
+              "value": "partial-overlay"
+            }
+          ]
+        },
+        {
+          "component": "number",
+          "name": "mobileopacity",
+          "label": "Overlay Opacity",
+          "valueType": "number",
+          "valueFormat": "double",
+          "description": "Darkness of the overlay behind the hero text on mobile, as a decimal from 0 (none) to 1 (solid), e.g. 0.5. Leave empty to follow the Text Overlay switch."
+        },
+        {
+          "component": "select",
+          "name": "mobilehorizontalalignment",
+          "label": "Text Horizontal Alignment",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Center",
+              "value": "center"
+            },
+            {
+              "name": "Right",
+              "value": "right"
+            }
+          ]
         }
       ]
     }

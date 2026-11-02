@@ -1,0 +1,488 @@
+/* Schedule Appointment block */
+main .schedule-appointment {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  font-family: var(--body-font-family, system-ui, sans-serif);
+  box-sizing: border-box;
+}
+
+/* Form title (h2 inside heading-wrapper) ----------------------------------- */
+main .schedule-appointment .td-form-title h2,
+main .schedule-appointment h2#heading-schedule-appointment {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 32px;
+  line-height: 1.15;
+}
+
+main .schedule-appointment .td-form-title label,
+main .schedule-appointment .heading-wrapper label {
+  display: none !important;
+}
+
+/* Section headings (personal info / vehicle arrival address) --------------- */
+main .schedule-appointment .td-section-heading h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 24px 0 12px;
+}
+
+main .schedule-appointment .td-section-heading label {
+  display: none !important;
+}
+
+/* Panel / form layout ------------------------------------------------------ */
+main .schedule-appointment .schedule-appointment-form {
+  --form-columns: 12;
+  --form-button-background-color: var(--main-accent-color, #e05a3a);
+  --form-button-background-hover-color: var(--main-accent-color, #c04a2a);
+  --form-input-border-color: #c8c8c8;
+  --form-label-color: #222;
+  --form-label-font-weight: 500;
+  --form-label-font-size: 14px;
+  --form-field-vert-gap: 14px;
+  --form-field-horz-gap: 20px;
+}
+
+main .schedule-appointment form {
+  display: block;
+}
+
+main .schedule-appointment .panel-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0 20px !important;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+/* Full-width items */
+main .schedule-appointment .panel-wrapper > .heading-wrapper,
+main .schedule-appointment .panel-wrapper > .button-wrapper,
+main .schedule-appointment .panel-wrapper > .submit-wrapper,
+main .schedule-appointment .panel-wrapper > .td-slot-picker,
+main .schedule-appointment .panel-wrapper > .td-slot-error,
+main .schedule-appointment .panel-wrapper > .field-wrapper[data-colspan="12"] {
+  grid-column: span 2;
+}
+
+/* Half-width items (colspan 6 out of 12 = 50%) */
+main .schedule-appointment .panel-wrapper > .field-wrapper[data-colspan="6"] {
+  grid-column: span 1;
+}
+
+main .schedule-appointment .field-wrapper {
+  margin: 0 0 14px;
+}
+
+main .schedule-appointment .field-wrapper label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #333;
+  display: block;
+  margin-bottom: 6px;
+}
+
+main .schedule-appointment .field-wrapper input,
+main .schedule-appointment .field-wrapper select {
+  width: 100%;
+  border: 1px solid #c8c8c8;
+  border-radius: 6px;
+  padding: 11px 14px;
+  font-size: 0.9375rem;
+  background: #fff;
+  color: #1a1a1a;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+main .schedule-appointment .field-wrapper input:focus,
+main .schedule-appointment .field-wrapper select:focus {
+  outline: none;
+  border-color: #888;
+}
+
+/* Submit button ------------------------------------------------------------ */
+main .schedule-appointment .submit-wrapper {
+  margin-top: 8px;
+}
+
+main .schedule-appointment form button[type='submit'] {
+  padding: 16px 40px;
+  background: var(--main-accent-color, #e05a3a);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+  display: inline-block;
+}
+
+main .schedule-appointment form button[type='submit']:hover:not(:disabled) {
+  opacity: 0.88;
+}
+
+main .schedule-appointment form button[type='submit']:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Success / error messages ------------------------------------------------ */
+main .schedule-appointment .form-message {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+main .schedule-appointment .form-message.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
+}
+
+main .schedule-appointment .form-message.error {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+/* TimeSlotPicker ----------------------------------------------------------- */
+main .schedule-appointment .td-slot-picker {
+  margin: 24px 0 20px;
+}
+
+main .schedule-appointment .td-slot-picker__label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 20px;
+}
+
+main .schedule-appointment .td-slot-picker__content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+main .schedule-appointment .td-slot-picker__nav {
+  flex-shrink: 0;
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #4b4b4b;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 34px;
+  border-radius: 18px;
+  line-height: 0;
+  overflow: visible;
+  transition: background 0.15s, color 0.15s, opacity 0.15s;
+}
+
+main .schedule-appointment .td-slot-picker-nav-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+main .schedule-appointment .td-slot-picker-nav-icon path {
+  fill: currentcolor;
+}
+
+main .schedule-appointment .td-slot-picker-nav-prev .td-slot-picker-nav-icon {
+  transform: rotate(180deg);
+}
+
+main .schedule-appointment .td-slot-picker__nav:hover:not(:disabled) {
+  background: rgb(0 0 0 / 6%);
+  color: #111;
+}
+
+main .schedule-appointment .td-slot-picker__nav:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+body.carvelo-theme main .schedule-appointment .td-slot-picker__nav {
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px;
+  padding: 0 !important;
+  border-radius: 18px !important;
+  color: #111;
+  font-size: 0 !important;
+}
+
+main .schedule-appointment .td-slot-picker__columns {
+  display: flex;
+  flex: 1;
+  gap: 12px;
+}
+
+main .schedule-appointment .td-slot-picker__column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+main .schedule-appointment .td-slot-picker__col-header {
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+main .schedule-appointment .td-slot-picker__col-header strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+main .schedule-appointment .td-slot-picker__col-header em {
+  display: block;
+  font-style: normal;
+  font-size: 0.8125rem;
+  color: #acacac;
+}
+
+main .schedule-appointment .td-slot-picker__option {
+  width: 100%;
+  padding: 12px 8px;
+  background: rgba(0, 101, 214, 0.1);
+  border: 1px solid rgba(0, 101, 214, 0.12);
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+main .schedule-appointment .td-slot-picker__option:hover:not(.is-disabled):not(.is-selected) {
+  background: rgba(0, 101, 214, 0.18);
+}
+
+main .schedule-appointment .td-slot-picker__option.is-selected {
+  color: var(--main-accent-color, #e05a3a);
+  border-color: var(--main-accent-color, #e05a3a);
+  background: rgba(224, 90, 58, 0.08);
+}
+
+main .schedule-appointment .td-slot-picker__option.is-disabled {
+  background: transparent;
+  border-color: transparent;
+  text-decoration: line-through;
+  color: #999;
+  cursor: default;
+}
+
+main .schedule-appointment .td-slot-error {
+  font-size: 0.8125rem;
+  color: #c62828;
+  margin: 4px 0 8px;
+}
+
+/* Toast notification (shown when no redirect-url is authored) ------------- */
+.td-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: #2e7d32;
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 18%);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  max-width: calc(100vw - 48px);
+  text-align: center;
+}
+
+.td-toast.td-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.section.bg-light.section-horizontal-widths.schedule-appointment-container .schedule-appointment {
+    padding-left: 20%;
+}
+body.carvelo-theme main .schedule-appointment-container .default-content-wrapper {
+    padding-right: 4% !important;
+}
+/* Carvelo theme ------------------------------------------------------------ */
+
+body.carvelo-theme main .schedule-appointment form button[type='submit'] {
+  background: #f82216;
+  border-radius: 50px;
+}
+
+body.carvelo-theme main .schedule-appointment form button[type='submit']:hover:not(:disabled) {
+  background: #c41a10;
+  opacity: 1;
+}
+
+body.carvelo-theme main .schedule-appointment .td-slot-picker__option.is-selected {
+  color: #f82216;
+  border-color: #f82216;
+  background: rgba(248, 34, 22, 0.08);
+}
+
+/* Responsive --------------------------------------------------------------- */
+@media (width < 600px) {
+  main .schedule-appointment {
+    padding: 32px 16px;
+  }
+
+  main .schedule-appointment .panel-wrapper {
+    grid-template-columns: 1fr !important;
+  }
+
+  main .schedule-appointment .panel-wrapper > .field-wrapper[data-colspan="6"] {
+    grid-column: span 1;
+  }
+
+  main .schedule-appointment .panel-wrapper > .heading-wrapper,
+  main .schedule-appointment .panel-wrapper > .button-wrapper,
+  main .schedule-appointment .panel-wrapper > .submit-wrapper,
+  main .schedule-appointment .panel-wrapper > .field-wrapper[data-colspan="12"] {
+    grid-column: span 1;
+  }
+
+  main .schedule-appointment .td-slot-picker__columns {
+    gap: 6px;
+  }
+
+  main .schedule-appointment .td-slot-picker__option {
+    font-size: 0.8125rem;
+    padding: 10px 4px;
+  }
+
+  main .schedule-appointment .panel-wrapper {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  main .schedule-appointment form button[type='submit'] {
+    display: block;
+    margin: 0 auto;
+  }
+
+  main .schedule-appointment .td-slot-picker__content {
+    align-items: center;
+  }
+
+  main .schedule-appointment .td-slot-picker__nav {
+    margin: 0;
+  }
+}
+
+/* ── Service variant (Customer service) ────────────────────────────────────── */
+
+/* Intro line */
+main .schedule-appointment .td-intro p {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-color, #1a1a1a);
+}
+
+/* The form renderer marks a field's width with a col-N class, and the shared form.css turns col-12
+   into "span 12" - far more columns than this block's two-column grid has, which spills items into
+   extra implicit columns. These rules out-rank it and place the service form's items by row:
+   everything is full width (the intro, headings and fields all carry col-12). */
+main .schedule-appointment form.schedule-appointment-service .panel-wrapper > .field-wrapper.col-12 {
+  grid-column: 1 / -1;
+}
+
+@media (width < 600px) {
+  main .schedule-appointment form.schedule-appointment-service .panel-wrapper > .field-wrapper[class*="col-"] {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ── Frescopa theme ────────────────────────────────────────────────────────── */
+/* Matches the Frescopa subscription form. Scoped to the theme so every other site that picks up
+   this block keeps its existing look. */
+
+/* The fixed site header otherwise covers the form title. */
+body.frescopa-theme main .schedule-appointment {
+  padding: 120px 24px 48px;
+}
+
+body.frescopa-theme main .schedule-appointment .td-form-title h2,
+body.frescopa-theme main .schedule-appointment h2#heading-schedule-appointment {
+  font-weight: 700;
+  color: var(--text-color, #1a1a1a);
+  margin: 0 0 24px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+body.frescopa-theme main .schedule-appointment .td-section-heading h2 {
+  font-weight: 400;
+  color: var(--text-color, #1a1a1a);
+  margin: 24px 0 16px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+body.frescopa-theme main .schedule-appointment .submit-wrapper {
+  text-align: center;
+}
+
+body.frescopa-theme main .schedule-appointment .td-intro p {
+  text-align: center;
+}
+
+/* Slot picker: amber pills like the theme's inputs (the buttons otherwise use the browser font). */
+body.frescopa-theme main .schedule-appointment .td-slot-picker__option {
+  background: #fff;
+  border: 2px solid #eaa33a;
+  border-radius: 50px;
+  font-family: var(--body-font-family, system-ui, sans-serif);
+  color: var(--text-color, #1a1a1a);
+}
+
+body.frescopa-theme main .schedule-appointment .td-slot-picker__option:hover:not(.is-disabled):not(.is-selected) {
+  background: rgba(234, 163, 58, 0.18);
+}
+
+body.frescopa-theme main .schedule-appointment .td-slot-picker__option.is-selected {
+  color: #fff;
+  border-color: var(--main-accent-color, #e05a3a);
+  background: var(--main-accent-color, #e05a3a);
+}
+
+body.frescopa-theme main .schedule-appointment .td-slot-picker__option.is-disabled {
+  background: transparent;
+  border-color: transparent;
+  color: #999;
+}
+
+@media (width < 600px) {
+  body.frescopa-theme main .schedule-appointment {
+    padding: 96px 16px 32px;
+  }
+}

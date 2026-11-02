@@ -65,7 +65,9 @@
       "rss-details",
       "insurance-plan-selection",
       "medicare-plan-selection",
-      "plan-application"
+      "plan-application",
+      "healthcare-upload-photo",
+      "healthcare-schedule-check"
     ]
   },
   {

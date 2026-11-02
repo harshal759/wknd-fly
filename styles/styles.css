@@ -449,6 +449,10 @@ main .section[data-section-status="loaded"] {
   visibility: visible;
 }
 
+html:not(.adobe-ue-edit) main .section[data-hide-in-desktop="true"] {
+  display: none !important;
+}
+
 /* Fully collapse content-only sections while loading: no background, padding or blank scroll. */
 main .section[data-section-status="initialized"]:not(:has(.block)),
 main .section[data-section-status="loading"]:not(:has(.block)) {
@@ -518,6 +522,12 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
 
 .hero.block[data-block-status="loaded"] {
   min-height: 0;
+}
+
+.content-card:not(.author-placeholder),
+.decisioning-container:not(.author-placeholder),
+.inbox:not(.author-placeholder) {
+  display: none !important;
 }
 
 /* Prevent cards FOUC: reserve space until loaded. */
@@ -935,6 +945,36 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   overflow: visible;
 }
 
+/* Prevent schedule-appointment FOUC: show a skeleton until loaded. */
+.schedule-appointment.block[data-block-status="initialized"],
+.schedule-appointment.block[data-block-status="loading"] {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+}
+
+.schedule-appointment.block[data-block-status="initialized"] > *,
+.schedule-appointment.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.schedule-appointment.block[data-block-status="initialized"]::before,
+.schedule-appointment.block[data-block-status="loading"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 420px no-repeat;
+  z-index: 2;
+}
+
+.schedule-appointment.block[data-block-status="loaded"] {
+  min-height: 0;
+  overflow: visible;
+}
+
 /* Prevent insurance FOUC: show a skeleton until loaded. */
 .insurance.block[data-block-status="initialized"],
 .insurance.block[data-block-status="loading"] {
@@ -1036,6 +1076,96 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
 }
 
 .name-change-request.block[data-block-status="loaded"] {
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Prevent automatic-payments FOUC: show a skeleton until loaded. */
+.automatic-payments.block[data-block-status="initialized"],
+.automatic-payments.block[data-block-status="loading"] {
+  position: relative;
+  min-height: 640px;
+  overflow: hidden;
+}
+
+.automatic-payments.block[data-block-status="initialized"] > *,
+.automatic-payments.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.automatic-payments.block[data-block-status="initialized"]::before,
+.automatic-payments.block[data-block-status="loading"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 500px no-repeat;
+  z-index: 2;
+}
+
+.automatic-payments.block[data-block-status="loaded"] {
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Prevent mobile-additional-service FOUC: show a skeleton until loaded. */
+.mobile-additional-service.block[data-block-status="initialized"],
+.mobile-additional-service.block[data-block-status="loading"] {
+  position: relative;
+  min-height: 820px;
+  overflow: hidden;
+}
+
+.mobile-additional-service.block[data-block-status="initialized"] > *,
+.mobile-additional-service.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.mobile-additional-service.block[data-block-status="initialized"]::before,
+.mobile-additional-service.block[data-block-status="loading"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 680px no-repeat;
+  z-index: 2;
+}
+
+.mobile-additional-service.block[data-block-status="loaded"] {
+  min-height: 0;
+  overflow: visible;
+}
+
+/* Prevent tv-additional-service FOUC: show a skeleton until loaded. */
+.tv-additional-service.block[data-block-status="initialized"],
+.tv-additional-service.block[data-block-status="loading"] {
+  position: relative;
+  min-height: 640px;
+  overflow: hidden;
+}
+
+.tv-additional-service.block[data-block-status="initialized"] > *,
+.tv-additional-service.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.tv-additional-service.block[data-block-status="initialized"]::before,
+.tv-additional-service.block[data-block-status="loading"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 24px / calc(100% - 48px) 40px no-repeat,
+    linear-gradient(var(--skeleton-block-color), var(--skeleton-block-color)) 24px 88px / calc(100% - 48px) 500px no-repeat;
+  z-index: 2;
+}
+
+.tv-additional-service.block[data-block-status="loaded"] {
   min-height: 0;
   overflow: visible;
 }
@@ -1203,6 +1333,51 @@ main .section[data-section-status="loaded"] > .default-content-wrapper {
   height: auto;
   min-height: 0;
   overflow: visible;
+}
+
+/* Prevent video FOUC: reserve space until loaded. */
+.video.block[data-block-status="initialized"],
+.video.block[data-block-status="loading"] {
+  min-height: 220px;
+}
+
+.video.block[data-block-status="initialized"] > *,
+.video.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.video.block[data-block-status="loaded"] {
+  min-height: 0;
+}
+
+/* Prevent healthcare-upload-photo FOUC: reserve space until loaded. */
+.healthcare-upload-photo.block[data-block-status="initialized"],
+.healthcare-upload-photo.block[data-block-status="loading"] {
+  min-height: 320px;
+}
+
+.healthcare-upload-photo.block[data-block-status="initialized"] > *,
+.healthcare-upload-photo.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.healthcare-upload-photo.block[data-block-status="loaded"] {
+  min-height: 0;
+}
+
+/* Prevent healthcare-schedule-check FOUC: reserve space until loaded. */
+.healthcare-schedule-check.block[data-block-status="initialized"],
+.healthcare-schedule-check.block[data-block-status="loading"] {
+  min-height: 520px;
+}
+
+.healthcare-schedule-check.block[data-block-status="initialized"] > *,
+.healthcare-schedule-check.block[data-block-status="loading"] > * {
+  visibility: hidden;
+}
+
+.healthcare-schedule-check.block[data-block-status="loaded"] {
+  min-height: 0;
 }
 
 h1,

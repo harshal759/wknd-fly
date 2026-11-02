@@ -130,12 +130,12 @@ function buildLoanApplicationFormDef(config = {}) {
     fieldType: 'form',
     appliedCssClassNames: 'loan-application-form-form loan-application-form-wizard',
     items: [
-      {
+      ...(formTitle ? [{
         id: 'heading-loan-application',
         fieldType: 'heading',
         label: { value: formTitle },
         appliedCssClassNames: 'col-12 loan-application-form-heading',
-      },
+      }] : []),
       {
         id: 'panel-wizard',
         name: 'wizard',
@@ -384,7 +384,7 @@ export default async function decorate(block) {
   loanApplicationFormWizardTitle =
   (config.formtitle ?? config['form-title'] ?? '')
     .toString()
-    .trim() || 'Home Loan Application Form';
+    .trim();
 
   loanApplicationFormWizardName =
   (config.formname ?? config['form-name'] ?? '')

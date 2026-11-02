@@ -38,6 +38,11 @@
       "id": "columns",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "text",
           "valueType": "number",
           "name": "columns",
@@ -66,6 +71,42 @@
           "value": "",
           "valueType": "string",
           "description": "Space-separated class names to add to the block"
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "select",
+          "name": "mobilelayout",
+          "label": "Layout",
+          "valueType": "string",
+          "value": "",
+          "description": "How this block's columns are laid out in the mobile app",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Vertical",
+              "value": "vertical"
+            },
+            {
+              "name": "Horizontal",
+              "value": "horizontal"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "value": "",
+          "valueType": "string[]",
+          "multi": true,
+          "description": "One style per row, as key:value (e.g. gap:16, padding:16)"
         }
       ]
     },
@@ -102,6 +143,50 @@
           "value": "",
           "valueType": "string",
           "description": "Space-separated class names to add to the block"
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "select",
+          "name": "mobilelayout",
+          "label": "Layout",
+          "valueType": "string",
+          "value": "",
+          "description": "How this column's items are laid out in the mobile app",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Vertical",
+              "value": "vertical"
+            },
+            {
+              "name": "Horizontal",
+              "value": "horizontal"
+            }
+          ]
+        },
+        {
+          "component": "boolean",
+          "name": "showBorder",
+          "label": "Show Border",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Draw a border around this column in the mobile app"
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "value": "",
+          "valueType": "string[]",
+          "multi": true,
+          "description": "One style per row, as key:value (e.g. gap:16, padding:16), applied to this column in the mobile app"
         }
       ]
     }

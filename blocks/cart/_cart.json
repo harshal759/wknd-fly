@@ -22,6 +22,11 @@
       "id": "cart",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "aem-content",
           "name": "folder",
           "label": "Product Folder",
@@ -44,6 +49,35 @@
           "value": "",
           "valueType": "string",
           "description": "Space-separated class names to add to the block"
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "text",
+          "name": "mobileButtonEventOnEmptyCart",
+          "label": "Empty Cart Button Event",
+          "value": "",
+          "valueType": "string",
+          "description": "Mobile event for the Empty cart button. Leave empty to use emptyCart."
+        },
+        {
+          "component": "text",
+          "name": "mobileButtonEventOnCheckout",
+          "label": "Review Order Button Event",
+          "value": "",
+          "valueType": "string",
+          "description": "Mobile event for the Review order button that opens checkout. Leave empty to keep the existing event default."
+        },
+        {
+          "component": "aem-content",
+          "name": "mobileRedirectUrl",
+          "label": "Mobile Redirect URL",
+          "value": "",
+          "valueType": "string",
+          "description": "Page to open in the mobile app when reviewing the order. Leave empty to open checkout."
         }
       ]
     }

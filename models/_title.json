@@ -20,6 +20,11 @@
       "id": "title",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "text",
           "name": "title",
           "label": "Title"
@@ -73,6 +78,20 @@
               "value": "right"
             }
           ]
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "value": "",
+          "valueType": "string[]",
+          "multi": true,
+          "description": "Custom styles for the title on mobile"
         }
       ]
     }

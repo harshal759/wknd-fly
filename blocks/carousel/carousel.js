@@ -132,37 +132,4 @@ export default function decorate(block) {
   block.parentNode.parentNode.prepend(leftContent);
   block.append(slider);
   createSlider(block);
-
-  const blocks = document.querySelectorAll(`.carousel`);
-  blocks.forEach((block, index) => {
-    block.id = `carousel-${index}`;
-    
-    // Add indexed IDs to images within the block
-    const images = block.querySelectorAll('img');
-    images.forEach((img, imgIndex) => {
-      const imgId = `carousel_${index}_image_${imgIndex}`;
-      img.id = imgId;
-    });
-
-    // Add indexed IDs to text content divs only
-    const cardBodies = block.querySelectorAll('.cards-card-body');
-    cardBodies.forEach((cardBody, bodyIndex) => {
-      cardBody.setAttribute('data-text-block-index', bodyIndex);
-    });
-
-    // Add indexed IDs to heading elements with container context
-    ['h1', 'h2', 'h3', 'h4', 'h5', 'h6','p'].forEach((tag) => {
-      const elements = block.querySelectorAll(tag);
-      elements.forEach((el) => {
-        const textBlock = el.closest('[data-text-block-index]');
-        const textBlockIndex = textBlock ? textBlock.getAttribute('data-text-block-index') : 'unknown';
-        
-        // Count this tag within its text block
-        const textBlockElements = textBlock ? textBlock.querySelectorAll(tag) : [el];
-        const tagIndex = Array.from(textBlockElements).indexOf(el);
-        
-        el.id = `carousel_${index}_text_${textBlockIndex}_${tag}_${tagIndex}`;
-      });
-    });
-  });
 }

@@ -376,4 +376,22 @@ body.carvelo-theme main .test-drive .td-slot-picker__option.is-selected {
     font-size: 0.8125rem;
     padding: 10px 4px;
   }
+
+  main .test-drive .panel-wrapper {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  main .test-drive form button[type='submit'] {
+    display: block;
+    margin: 0 auto;
+  }
+
+  main .test-drive .td-slot-picker__content {
+    align-items: center;
+  }
+
+  main .test-drive .td-slot-picker__nav {
+    margin: 0;
+  }
 }

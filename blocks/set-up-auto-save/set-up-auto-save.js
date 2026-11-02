@@ -42,12 +42,12 @@ export default async function decorate(block) {
     appliedCssClassNames: "set-up-auto-save-form",
     ...(redirectUrl && { redirectUrl }),
     items: [
-      {
+      ...(String(config["form-title"] ?? "").trim() ? [{
         id: "heading-set-up-auto-save",
         fieldType: "heading",
-        label: { value: "Set up auto save" },
+        label: { value: String(config["form-title"] ?? "").trim() },
         appliedCssClassNames: "col-12",
-      },
+      }] : []),
       {
         id: "panel-main",
         name: "main",

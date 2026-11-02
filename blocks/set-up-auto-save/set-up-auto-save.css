@@ -122,6 +122,7 @@ main .set-up-auto-save .submit-wrapper button {
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-align: center;
 }
 
 main .set-up-auto-save .submit-wrapper button:hover {

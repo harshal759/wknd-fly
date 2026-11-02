@@ -22,6 +22,11 @@
       "id": "test-drive",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "select",
           "name": "variant",
           "label": "Variant",
@@ -38,6 +43,19 @@
           "label": "Form Title (overrides variant default)",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "location",
+          "label": "Location",
+          "value": "",
+          "valueType": "string",
+          "condition": {
+            "==": [
+              { "var": "variant" },
+              "schedule-appointment"
+            ]
+          }
         },
         {
           "component": "text",
@@ -60,7 +78,15 @@
           "label": "Days Shown",
           "value": "3",
           "valueType": "string",
-          "description": "Number of day columns to display at once (1-7)"
+          "description": "Number of day columns to display at once for desktop (1-7)"
+        },
+        {
+          "component": "text",
+          "name": "mobile-days-shown",
+          "label": "Mobile Days Shown",
+          "value": "2",
+          "valueType": "string",
+          "description": "Number of day columns to display at once for mobile (1-7)"
         },
         {
           "component": "boolean",
@@ -110,6 +136,19 @@
           "label": "Button Data Sheet",
           "valueType": "string",
           "description": "AEM sheet path whose key/value rows are sent on submit"
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "text",
+          "name": "mobileFormID",
+          "label": "Mobile Form ID",
+          "value": "",
+          "valueType": "string",
+          "description": "Optional form ID to associate with this form in the mobile app."
         },
         {
           "component": "text",

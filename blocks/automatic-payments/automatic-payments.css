@@ -1,0 +1,153 @@
+/* ============================================
+   Automatic Payments – card form on the shared form renderer
+   ============================================ */
+
+main .automatic-payments {
+  width: 100%;
+  max-width: 520px;
+  margin: 40px auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+main .automatic-payments .automatic-payments-form {
+  --form-columns: 12;
+  --form-button-background-color: var(--main-accent-color, #1e293b);
+  --form-button-background-hover-color: var(--main-accent-hover, var(--link-hover-color, #0f172a));
+  --form-input-border-color: #cbd5e1;
+  --form-label-color: #1e293b;
+  --form-label-font-weight: 500;
+  --form-label-font-size: 15px;
+  --form-field-vert-gap: 16px;
+}
+
+main .automatic-payments form {
+  display: block;
+}
+
+main .automatic-payments .panel-wrapper {
+  display: block !important;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+main .automatic-payments .field-wrapper {
+  margin: 0 0 20px;
+}
+
+main .automatic-payments .submit-wrapper {
+  margin: 28px 0 0;
+}
+
+main .automatic-payments .submit-wrapper button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 16px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 999px;
+  background: var(--main-accent-color, #1e293b);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+main .automatic-payments .submit-wrapper button:hover {
+  background: var(--main-accent-hover, var(--link-hover-color, #0f172a));
+}
+
+main .automatic-payments .submit-wrapper button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+main .automatic-payments .form-message.success {
+  margin: 0 0 12px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  background: #ecfdf5;
+  color: #065f46;
+  font-size: 14px;
+}
+
+/* Toast shown after submit when no redirect is authored */
+.ap-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translate(-50%, 16px);
+  max-width: calc(100vw - 32px);
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #fff;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 1000;
+}
+
+.ap-toast--visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+main .automatic-payments input[type="text"],
+main .automatic-payments input[type="email"] {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 15px;
+  color: #1e293b;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+main .automatic-payments input[type="text"]:focus,
+main .automatic-payments input[type="email"]:focus {
+  outline: none;
+  border-color: var(--main-accent-color, #1e293b);
+  box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.12);
+}
+
+/* Payment Method / Payment Cycle: the legend reads as a section title */
+main .automatic-payments .radio-group-wrapper > legend {
+  margin: 0 0 12px;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1e293b;
+}
+
+main .automatic-payments form .radio-group-wrapper {
+  margin: 0 0 28px;
+}
+
+main .automatic-payments .radio-wrapper {
+  margin: 0 0 12px;
+}
+
+main .automatic-payments .radio-wrapper input[type="radio"] {
+  accent-color: var(--main-accent-color, #1e293b);
+}
+
+@media (width <= 768px) {
+  main .automatic-payments {
+    margin: 24px 0;
+    padding: 28px 20px;
+    border-radius: 8px;
+  }
+}
+
+/* The form's heading field renders its text twice - as a label and as the heading. This block
+   does not load the form block's stylesheet, which is what hides the label elsewhere. */
+main .automatic-payments .heading-wrapper > label {
+  display: none;
+}

@@ -23,6 +23,26 @@
       "id": "section",
       "fields": [
         {
+          "component": "text",
+          "name": "name",
+          "label": "Section Name",
+          "description": "The label shown for this section in the Content Tree"
+        },
+        {
+          "component": "boolean",
+          "name": "hide-in-mobile",
+          "label": "Don't show in mobile",
+          "value": "false",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "hide-in-desktop",
+          "label": "Don't show in desktop",
+          "value": "false",
+          "valueType": "boolean"
+        },
+        {
           "component": "select",
           "name": "sec-spacing",
           "value": "",
@@ -189,6 +209,37 @@
           "value": "",
           "label": "Item widths (%)",
           "description": "Comma-separated width percentages for items (e.g. 25,25,50). When set, items are arranged horizontally with these widths."
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "boolean",
+          "name": "fullHeight",
+          "label": "Full height (100%)",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "showBorder",
+          "label": "Show border",
+          "valueType": "boolean"
+        },
+        {
+          "component": "boolean",
+          "name": "itemsFillHeight",
+          "label": "Equally sized items",
+          "valueType": "boolean"
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "valueType": "string[]",
+          "multi": true,
+          "description": "One style per row, as key:value (e.g. gap:16, padding:16)"
         }
       ]
     }
@@ -229,7 +280,9 @@
         "rss-details",
         "insurance-plan-selection",
         "medicare-plan-selection",
-        "plan-application"
+        "plan-application",
+        "healthcare-upload-photo",
+        "healthcare-schedule-check"
       ]
     }
   ]

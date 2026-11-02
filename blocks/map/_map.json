@@ -1,0 +1,79 @@
+{
+  "definitions": [
+    {
+      "title": "Map",
+      "id": "map",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Map",
+              "model": "map"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "map",
+      "fields": [
+        {
+          "component": "text",
+          "name": "mobileColor",
+          "label": "Coordinates pin color",
+          "valueType": "string",
+          "value": "blue"
+        },
+        {
+          "component": "number",
+          "name": "mobileHeight",
+          "label": "Height (px)",
+          "valueType": "number",
+          "value": 500
+        },
+        {
+          "component": "text",
+          "name": "mobileLocationColor",
+          "label": "Location color",
+          "valueType": "string",
+          "value": "green"
+        },
+        {
+          "component": "text",
+          "name": "mobileText",
+          "label": "Text",
+          "valueType": "string"
+        },
+        {
+          "component": "select",
+          "name": "mobileDisplayAs",
+          "label": "Display As",
+          "valueType": "string",
+          "value": "fullMap",
+          "options": [
+            {
+              "name": "Full Map Component",
+              "value": "fullMap"
+            },
+            {
+              "name": "Button (Show map on click)",
+              "value": "modal"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "mobileMapCoordinates",
+          "label": "Map Coordinates",
+          "valueType": "string",
+          "multi": true,
+          "description": "One location per line as: label,latitude,longitude"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

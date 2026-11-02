@@ -8,18 +8,18 @@ import { readBlockConfig, loadCSS } from '../../scripts/aem.js';
 import { dispatchCustomEvent } from '../../scripts/custom-events.js';
 import { fetchButtonDataSheet } from '../../scripts/form-data-layer.js';
 
-function buildExternalAccountFormDef() {
+function buildExternalAccountFormDef(title) {
   return {
     id: 'add-external-account',
     fieldType: 'form',
     appliedCssClassNames: 'add-external-form',
     items: [
-      {
+      ...(title ? [{
         id: 'heading-add-external',
         fieldType: 'heading',
-        label: { value: 'Add external account' },
+        label: { value: title },
         appliedCssClassNames: 'col-12 add-external-heading',
-      },
+      }] : []),
       {
         id: 'panel-add-external-account',
         name: 'externalAccount',
@@ -58,18 +58,18 @@ function buildExternalAccountFormDef() {
   };
 }
 
-function buildExternalCreditCardFormDef() {
+function buildExternalCreditCardFormDef(title) {
   return {
     id: 'add-external-credit-card',
     fieldType: 'form',
     appliedCssClassNames: 'add-external-form',
     items: [
-      {
+      ...(title ? [{
         id: 'heading-add-external',
         fieldType: 'heading',
-        label: { value: 'Add external credit card' },
+        label: { value: title },
         appliedCssClassNames: 'col-12 add-external-heading',
-      },
+      }] : []),
       {
         id: 'panel-add-external-credit-card',
         name: 'externalCreditCard',
@@ -121,8 +121,8 @@ function applyButtonConfigToSubmitButton(block, config) {
   if (buttonData && String(buttonData).trim()) submitButton.dataset.buttonData = String(buttonData).trim();
 }
 
-function buildFormDef(variant) {
-  return variant === 'credit-card' ? buildExternalCreditCardFormDef() : buildExternalAccountFormDef();
+function buildFormDef(variant, title) {
+  return variant === 'credit-card' ? buildExternalCreditCardFormDef(title) : buildExternalAccountFormDef(title);
 }
 
 function collectFormData(form) {
@@ -147,7 +147,7 @@ export default async function decorate(block) {
 
   block.textContent = '';
 
-  const formDef = buildFormDef(variant);
+  const formDef = buildFormDef(variant, String(cfg['form-title'] ?? '').trim());
   const formContainer = document.createElement('div');
   formContainer.className = 'add-external-form-wrapper form';
 

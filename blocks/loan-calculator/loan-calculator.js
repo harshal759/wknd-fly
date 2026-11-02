@@ -151,12 +151,11 @@ export default async function decorate(block) {
       if (downPayment > newDownMax) {
         downPayment = newDownMax;
         down.input.value = downPayment;
-        down.valueEl.textContent = formatDownValue(downPayment);
       } else if (downPayment < newDownMin) {
         downPayment = newDownMin;
         down.input.value = downPayment;
-        down.valueEl.textContent = formatDownValue(downPayment);
       }
+      down.valueEl.textContent = formatDownValue(downPayment);
       updatePayment();
     });
     left.append(purchase.wrap);

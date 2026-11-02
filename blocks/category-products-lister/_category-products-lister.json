@@ -22,6 +22,20 @@
       "id": "category-products-lister",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
+          "component": "number",
+          "name": "limit",
+          "label": "Product Limit",
+          "valueType": "number",
+          "value": 0,
+          "min": 0,
+          "description": "Maximum number of products to display. Set to 0 to show all products."
+        },
+        {
           "component": "aem-content",
           "name": "folder",
           "label": "Products Folder (Content Fragments)",
@@ -126,6 +140,203 @@
           "value": "",
           "valueType": "string",
           "description": "Space-separated class names to add to the block"
+        },
+        {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "select",
+          "name": "mobilelayout",
+          "label": "Layout",
+          "valueType": "string",
+          "value": "horizontal",
+          "options": [
+            {
+              "name": "Vertical/Grid",
+              "value": "vertical/grid"
+            },
+            {
+              "name": "Horizontal",
+              "value": "horizontal"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "mobilesort",
+          "label": "Sort by",
+          "valueType": "string",
+          "value": "none",
+          "options": [
+            {
+              "name": "Name (A-Z)",
+              "value": "alphabetical"
+            },
+            {
+              "name": "Name (Z-A)",
+              "value": "alphabetical-reverse"
+            },
+            {
+              "name": "None",
+              "value": "none"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "mobileitemrenderer",
+          "label": "Item variant",
+          "valueType": "string",
+          "value": "image-text-one-line",
+          "description": "Image and text in one line works only with Vertical/Grid layout",
+          "options": [
+            {
+              "name": "Image and text in one line",
+              "value": "image-text-one-line"
+            },
+            {
+              "name": "Image and text overlay",
+              "value": "overlay"
+            },
+            {
+              "name": "Image and text below",
+              "value": "stacked"
+            },
+            {
+              "name": "Single Image",
+              "value": "image"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "mobileitemsinrow",
+          "label": "Items in row",
+          "value": "",
+          "valueType": "number",
+          "description": "Number of items per row (1-12). Applies only when Layout is Vertical/Grid"
+        },
+        {
+          "component": "select",
+          "name": "mobileimagestyle",
+          "label": "Image Resize Mode",
+          "valueType": "string",
+          "value": "contain",
+          "options": [
+            {
+              "name": "Contain",
+              "value": "contain"
+            },
+            {
+              "name": "Cover",
+              "value": "cover"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "name": "mobileimagewidth",
+          "label": "Image width",
+          "value": "",
+          "valueType": "number",
+          "description": "Image width on mobile, in pixels. Leave empty for the default"
+        },
+        {
+          "component": "text",
+          "name": "mobileitemheight",
+          "label": "Item height",
+          "value": "",
+          "valueType": "number",
+          "description": "Item height on mobile, in pixels. Leave empty for the default"
+        },
+        {
+          "component": "select",
+          "name": "mobiletitlesize",
+          "label": "Title size",
+          "valueType": "string",
+          "value": "",
+          "description": "Leave on Default to use the app's size for the item variant.",
+          "options": [
+            { "name": "Default", "value": "" },
+            { "name": "X-Small", "value": "labelSmall" },
+            { "name": "Small", "value": "labelMedium" },
+            { "name": "Medium", "value": "labelLarge" },
+            { "name": "Large", "value": "titleMedium" },
+            { "name": "X-Large", "value": "titleLarge" }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "mobiletitlefontweight",
+          "label": "Title font weight",
+          "valueType": "string",
+          "value": "regular",
+          "options": [
+            { "name": "Light", "value": "light" },
+            { "name": "Regular", "value": "regular" },
+            { "name": "Bold", "value": "bold" },
+            { "name": "Black", "value": "black" }
+          ]
+        },
+        {
+          "component": "boolean",
+          "name": "mobilehidesubtitle",
+          "label": "Hide subtitle",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Hide the subtitle of each list item"
+        },
+        {
+          "component": "select",
+          "name": "mobilesubtitlesize",
+          "label": "Subtitle size",
+          "valueType": "string",
+          "value": "",
+          "description": "Leave on Default to use the app's size for the item variant.",
+          "options": [
+            { "name": "Default", "value": "" },
+            { "name": "X-Small", "value": "labelSmall" },
+            { "name": "Small", "value": "labelMedium" },
+            { "name": "Medium", "value": "labelLarge" },
+            { "name": "Large", "value": "titleMedium" },
+            { "name": "X-Large", "value": "titleLarge" }
+          ],
+          "condition": {
+            "!=": [
+              { "var": "mobilehidesubtitle" },
+              true
+            ]
+          }
+        },
+        {
+          "component": "select",
+          "name": "mobilesubtitlefontweight",
+          "label": "Subtitle font weight",
+          "valueType": "string",
+          "value": "light",
+          "options": [
+            { "name": "Light", "value": "light" },
+            { "name": "Regular", "value": "regular" },
+            { "name": "Bold", "value": "bold" },
+            { "name": "Black", "value": "black" }
+          ],
+          "condition": {
+            "!=": [
+              { "var": "mobilehidesubtitle" },
+              true
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "value": "",
+          "multi": true,
+          "description": "Custom styles for the block on mobile"
         }
       ]
     }

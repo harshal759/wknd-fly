@@ -22,12 +22,52 @@
       "id": "plan-application",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
+          "component": "text",
+          "name": "form-title",
+          "label": "Form Title",
+          "valueType": "string",
+          "description": "Passed in the data layer as the wizard title. It is not displayed on the page."
+        },
+        {
+          "component": "text",
+          "name": "form-name",
+          "label": "Form Name",
+          "valueType": "string",
+          "description": "Passed in the data layer as the wizard name. It is not displayed on the page."
+        },
+        {
           "component": "text",
           "name": "defaultPlanName",
           "label": "Default Plan Name",
           "value": "Medicare Extra (HMO) Plan",
           "valueType": "string",
           "description": "Fallback name if no plan URL parameter is provided."
+        },
+        {
+          "component": "text",
+          "name": "started-event-type",
+          "label": "Started Event Type",
+          "valueType": "string",
+          "description": "Launch/Analytics event fired when the form wizard starts"
+        },
+        {
+          "component": "text",
+          "name": "step-event-type",
+          "label": "Step Event Type",
+          "valueType": "string",
+          "description": "Launch/Analytics event fired on each wizard step advance"
+        },
+        {
+          "component": "text",
+          "name": "abandoned-event-type",
+          "label": "Abandoned Event Type",
+          "valueType": "string",
+          "description": "Launch/Analytics event fired when user leaves without submitting"
         },
         {
           "component": "text",
@@ -58,11 +98,27 @@
           "description": "AEM sheet path whose key/value rows are sent on submit"
         },
         {
+          "component": "boolean",
+          "name": "auto-submit-on-last-panel",
+          "label": "Auto Submit On Last Panel",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "When enabled, the submit step auto-advances and triggers submission flow into the success panel."
+        },
+        {
           "component": "text",
           "name": "submitbuttontext",
           "label": "Submit Button Text",
           "value": "Submit",
-          "valueType": "string"
+          "valueType": "string",
+          "condition": {
+            "==": [
+              {
+                "var": "auto-submit-on-last-panel"
+              },
+              false
+            ]
+          }
         },
         {
           "component": "text",
@@ -73,11 +129,32 @@
           "description": "Space-separated class names to add to the block"
         },
         {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
           "component": "text",
           "name": "mobilebuttoneventtype",
           "label": "Mobile Button Event Type",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "mobileRedirectUrl",
+          "label": "Mobile Redirect URL",
+          "value": "",
+          "valueType": "string",
+          "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "valueType": "string[]",
+          "multi": true,
+          "description": "One style per row, as key:value (e.g. checkbox-width:250 or radio-width:250 sets the width of the checkbox or radio rows)"
         }
       ]
     }

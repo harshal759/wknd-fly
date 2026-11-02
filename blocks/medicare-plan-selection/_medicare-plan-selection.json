@@ -22,6 +22,25 @@
       "id": "medicare-plan-selection",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
+          "component": "text",
+          "name": "form-title",
+          "label": "Form Title",
+          "valueType": "string",
+          "description": "Passed in the data layer as the wizard title. It is not displayed on the page."
+        },
+        {
+          "component": "text",
+          "name": "form-name",
+          "label": "Form Name",
+          "valueType": "string",
+          "description": "Passed in the data layer as the wizard name. It is not displayed on the page."
+        },
+        {
           "component": "text",
           "name": "formHeading",
           "label": "Main Heading",
@@ -31,7 +50,7 @@
         {
           "component": "text",
           "name": "formSubtitle",
-          "label": "Main Subtitle",
+          "label": "Main Subheading",
           "value": "Take our free, short quiz to learn which type of health insurance might be best for you!",
           "valueType": "string"
         },
@@ -41,6 +60,27 @@
           "name": "redirectUrl",
           "label": "Redirect URL",
           "description": "Page to redirect to after successful quiz submission."
+        },
+        {
+          "component": "text",
+          "name": "started-event-type",
+          "label": "Started Event Type",
+          "valueType": "string",
+          "description": "Launch/Analytics event fired when the form wizard starts"
+        },
+        {
+          "component": "text",
+          "name": "step-event-type",
+          "label": "Step Event Type",
+          "valueType": "string",
+          "description": "Launch/Analytics event fired on each wizard step advance"
+        },
+        {
+          "component": "text",
+          "name": "abandoned-event-type",
+          "label": "Abandoned Event Type",
+          "valueType": "string",
+          "description": "Launch/Analytics event fired when user leaves without submitting"
         },
         {
           "component": "text",
@@ -86,11 +126,32 @@
           "description": "Space-separated class names to add to the block"
         },
         {
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
           "component": "text",
           "name": "mobilebuttoneventtype",
           "label": "Mobile Button Event Type",
           "value": "",
           "valueType": "string"
+        },
+        {
+          "component": "aem-content",
+          "name": "mobileRedirectUrl",
+          "label": "Mobile Redirect URL",
+          "value": "",
+          "valueType": "string",
+          "description": "Page to open in the mobile app after successful form submission. Leave empty to use the existing redirect default."
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "valueType": "string[]",
+          "multi": true,
+          "description": "One style per row, as key:value (e.g. checkbox-width:250 or radio-width:250 sets the width of the checkbox or radio rows)"
         }
       ]
     }

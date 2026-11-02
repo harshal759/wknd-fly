@@ -110,3 +110,10 @@
     max-width: 100%;
   }
 }
+
+.get-offer-title {
+  margin: 0;
+  color: #fff;
+  text-align: center;
+  font-size: 1.25rem;
+}

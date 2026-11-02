@@ -21,6 +21,11 @@
       "id": "product-card",
       "fields": [
         {
+          "component": "tab",
+          "label": "Basic",
+          "name": "basic"
+        },
+        {
           "component": "aem-content",
           "name": "contentFragmentFolder",
           "label": "Content Fragment Folder",
@@ -133,11 +138,99 @@
           "description": "Space-separated class names to add to the block"
         },
         {
-          "component": "text",
-          "name": "mobilebuttoneventtype",
-          "label": "Mobile Button Event Type",
+          "component": "tab",
+          "label": "Mobile Specific",
+          "name": "mobileSpecific"
+        },
+        {
+          "component": "select",
+          "name": "mobilecardstyle",
+          "label": "Card Type",
+          "valueType": "string",
+          "value": "overlay",
+          "options": [
+            {
+              "name": "Image and text in one line",
+              "value": "image-text-one-line"
+            },
+            {
+              "name": "Image and text overlay",
+              "value": "overlay"
+            },
+            {
+              "name": "Image and text below",
+              "value": "stacked"
+            },
+            {
+              "name": "Image partially overlayed",
+              "value": "partial-overlay"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "name": "mobileimagestyle",
+          "label": "Image Resize Mode",
+          "valueType": "string",
           "value": "",
-          "valueType": "string"
+          "options": [
+            {
+              "name": "Contain",
+              "value": "contain"
+            },
+            {
+              "name": "Cover",
+              "value": "cover"
+            }
+          ]
+        },
+        {
+          "component": "boolean",
+          "name": "mobileshowbutton",
+          "label": "Show Button",
+          "value": "false",
+          "valueType": "boolean",
+          "description": "Show a button on the card. Its text and link come from Button Text and Button Link."
+        },
+        {
+          "component": "select",
+          "name": "mobilebuttonvariant",
+          "label": "Button Variant",
+          "condition": {
+            "==": [{ "var": "mobileshowbutton" }, true]
+          },
+          "options": [
+            {
+              "name": "Primary",
+              "value": "contained"
+            },
+            {
+              "name": "Secondary",
+              "value": "contained-tonal"
+            },
+            {
+              "name": "Outlined",
+              "value": "outlined"
+            },
+            {
+              "name": "Quiet",
+              "value": "text"
+            },
+            {
+              "name": "Elevated",
+              "value": "elevated"
+            }
+          ],
+          "description": "Leave empty to follow the CTA Style."
+        },
+        {
+          "component": "text",
+          "name": "custommobilestyle",
+          "label": "Custom Mobile Style",
+          "value": "",
+          "valueType": "string[]",
+          "description": "Custom styles for the card on mobile",
+          "multi": true
         }
       ]
     }
