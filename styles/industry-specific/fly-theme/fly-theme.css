@@ -77,6 +77,10 @@ body.fly-theme .section.create-account-container .default-content-wrapper a {
   text-decoration: underline;
 }
 
+body.fly-theme header .nav-brand a::after, body.fly-theme header .nav-brand a:hover::after, body.fly-theme header .nav-brand a.button::after {
+  content: unset;
+}
+
 @media screen and (max-width: 768px) {
   body.fly-theme header,
   body.fly-theme header nav {
