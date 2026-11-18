@@ -180,8 +180,23 @@
   text-align: center;
 }
 
+/* The icon keeps its own size, centred above the text */
 .cards > ul > li.icon-cards img {
-  min-height: 100px;
+  width: auto;
+  height: auto;
+  min-height: unset;
+  max-height: unset;
+  aspect-ratio: unset;
+  object-fit: unset;
+}
+
+.cards > ul > li.icon-cards .cards-card-image {
+  min-height: unset;
+  max-height: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0 0;
 }
 
 /* Card Image Top */
