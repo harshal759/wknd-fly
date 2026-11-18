@@ -1610,3 +1610,8 @@ body.binji-theme main .section.new-arrival-container .new-arrival .na-card .na-c
   line-height: 32px;
   margin: 0 0 0.83em;
 }
+
+/* No animated underline on the header links of this site. */
+body.binji-theme header nav .nav-sections ul > li > a::before {
+  display: none !important;
+}

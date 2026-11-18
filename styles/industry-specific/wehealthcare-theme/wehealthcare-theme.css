@@ -1295,3 +1295,8 @@ body.wehealthcare-theme .action-button .button-container.default-button-link a.b
 body.wehealthcare-theme .action-button .button-container.default-button-dark a.button::after {
   content: unset;
 }
+
+/* No animated underline on the header links of this site. */
+body.wehealthcare-theme header nav .nav-sections ul > li > a::before {
+  display: none !important;
+}

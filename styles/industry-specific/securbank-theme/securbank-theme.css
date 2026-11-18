@@ -484,3 +484,9 @@ body.securbank-theme .get-offer-wrapper > .get-offer-form {
     background-color: transparent;
   }
 }
+
+/* No animated underline on the header links of this site. */
+body.securbank-theme header nav .nav-sections ul > li > a::before,
+body.securfinancial-theme header nav .nav-sections ul > li > a::before {
+  display: none !important;
+}

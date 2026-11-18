@@ -2817,3 +2817,8 @@ body.halliby-theme .section.order-confirmation-container .default-content-wrappe
 }
 
 /* [DT:END:.section.order-confirmation-container] */
+
+/* No animated underline on the header links of this site. */
+body.halliby-theme header nav .nav-sections ul > li > a::before {
+  display: none !important;
+}

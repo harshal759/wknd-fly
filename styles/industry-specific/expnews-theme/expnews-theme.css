@@ -917,3 +917,8 @@ body.expnews-theme .sign-in-container .sign-in-wrapper .sign-in.block .create-ac
     padding: 0;
   }
 }
+
+/* No animated underline on the header links of this site. */
+body.expnews-theme header nav .nav-sections ul > li > a::before {
+  display: none !important;
+}
