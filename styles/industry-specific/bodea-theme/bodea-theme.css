@@ -670,7 +670,9 @@ body.bodea-theme header nav a::after{
     bottom: 0;
     left: 0;
 }
-header nav .nav-sections ul > li > a::before {
+/* The animated underline on header links is only wanted on luma, citi-signal, carvelo, frescopa and fly;
+   every other site keeps it hidden. */
+body:not(.luma-theme, .citi-signal-theme, .carvelo-theme, .frescopa-theme, .fly-theme) header nav .nav-sections ul > li > a::before {
   display:none !important;
 }
 @media (max-width: 425px) {
